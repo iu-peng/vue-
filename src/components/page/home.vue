@@ -1,7 +1,42 @@
 <template>
   <div>
+  <el-menu theme="dark" :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+  <el-menu-item index="1">处理中心</el-menu-item>
+  <el-submenu index="2">
+    <template slot="title">我的工作台</template>
+    <el-menu-item index="2-1">选项1</el-menu-item>
+    <el-menu-item index="2-2">选项2</el-menu-item>
+    <el-menu-item index="2-3">选项3</el-menu-item>
+  </el-submenu>
+  <el-menu-item index="3">订单管理</el-menu-item>
+</el-menu>
     <el-row>
-      <el-col :span="10" id="checked-list">
+    <!-- 侧边页 -->
+    <el-col :span="3">
+    <el-menu default-active="2" theme="dark" class="left-nav" @open="handleOpen" @close="handleClose">
+      <el-submenu index="1">
+        <template slot="title"><i class="el-icon-message"></i>导航一</template>
+        <el-menu-item-group>
+          <template slot="title">分组一</template>
+          <el-menu-item index="1-1">选项1</el-menu-item>
+          <el-menu-item index="1-2">选项2</el-menu-item>
+        </el-menu-item-group>
+        <el-menu-item-group title="分组2">
+          <el-menu-item index="1-3">选项3</el-menu-item>
+        </el-menu-item-group>
+        <el-submenu index="1-4">
+          <template slot="title">选项4</template>
+          <el-menu-item index="1-4-1">选项1</el-menu-item>
+        </el-submenu>
+      </el-submenu>
+      <el-menu-item index="2"><i class="el-icon-menu"></i>导航二</el-menu-item>
+      <el-menu-item index="3"><i class="el-icon-setting"></i>导航三</el-menu-item>
+    </el-menu>
+  </el-col>
+
+
+      <!-- 订单页 -->
+      <el-col :span="9"  id="checked-list">
         <el-tabs type="border-card">
           <el-tab-pane label="订单">
             <el-table :data="checkedList" border show-summary stripe style="width: 100%">
@@ -10,21 +45,21 @@
                   resizable prop="goodsName" 
                   align="center" 
                   label="商品名称" 
-                  min-width="120"
+                  min-width="100"
                 ></el-table-column>
                 <el-table-column 
                   align="center" 
                   prop="count" 
                   label="数量" 
-                  min-width="90"
+                  min-width="80"
                 ></el-table-column>
                 <el-table-column 
                   prop="price" 
                   align="center" 
                   label="金额" 
-                  min-width="100"
+                  min-width="80"
                 ></el-table-column>
-                <el-table-column label="操作" align="center"  min-width="230" prop="goodsId">
+                <el-table-column label="操作" align="center"  min-width="220" prop="goodsId">
                   <template scope="props">
                     <el-button type="warning" size="small" @click="delOne(props.row.goodsId)">删除</el-button>
                     <el-button type="success" size="small" @click="reduceOne(props.row.goodsId)">减少</el-button>
@@ -39,7 +74,7 @@
         </el-tabs>
       </el-col>
       <!-- 常用商品 -->
-      <el-col :span="14" id="offten-goods">
+      <el-col :span="12" id="offten-goods">
         <h3 class="offten-title">常用商品</h3>
         <div class="offten-goods-list">
           <ul class="clearfix">
@@ -56,52 +91,43 @@
           <el-tab-pane label="汉堡">
             <ul>
               <li v-for="item in goodsKindList[0]" @click="addOrder(item)">
-                <dl>
+                <img :src="item.goodsImg" />
+                <p class="goods-title">{{item.goodsName}}</p>
+                <p class="goods-price"><b>¥</b>{{item.price}}</p>
+                <!-- <dl>
                   <dt><img :src="item.goodsImg" alt=""></dt>
                   <dd>
                     <p>{{item.goodsName}}</p>
                     <p>￥{{item.price}}</p>
                   </dd>
-                </dl>
+                </dl> -->
               </li>
             </ul>
           </el-tab-pane>
           <el-tab-pane label="特色小吃">
             <ul>
               <li v-for="item in goodsKindList[1]"  @click="addOrder(item)">
-                <dl>
-                  <dt><img :src="item.goodsImg" alt=""></dt>
-                  <dd>
-                    <p>{{item.goodsName}}</p>
-                    <p>￥{{item.price}}</p>
-                  </dd>
-                </dl>
+                <img :src="item.goodsImg" />
+                <p class="goods-title">{{item.goodsName}}</p>
+                <p class="goods-price"><b>¥</b>{{item.price}}</p>
               </li>
             </ul>
           </el-tab-pane>
           <el-tab-pane label="饮料">
             <ul>
               <li v-for="item in goodsKindList[2]"  @click="addOrder(item)">
-                <dl>
-                  <dt><img :src="item.goodsImg" alt=""></dt>
-                  <dd>
-                    <p>{{item.goodsName}}</p>
-                    <p>￥{{item.price}}</p>
-                  </dd>
-                </dl>
+                <img :src="item.goodsImg" />
+                <p class="goods-title">{{item.goodsName}}</p>
+                <p class="goods-price"><b>¥</b>{{item.price}}</p>
               </li>
             </ul>
           </el-tab-pane>
           <el-tab-pane label="套餐">
             <ul>
               <li v-for="item in goodsKindList[3]"  @click="addOrder(item)">
-                <dl>
-                  <dt><img :src="item.goodsImg" alt=""></dt>
-                  <dd>
-                    <p>{{item.goodsName}}</p>
-                    <p>￥{{item.price}}</p>
-                  </dd>
-                </dl>
+                <img :src="item.goodsImg" />
+                <p class="goods-title">{{item.goodsName}}</p>
+                <p class="goods-price"><b>¥</b>{{item.price}}</p>
               </li>
             </ul>
           </el-tab-pane>
@@ -214,6 +240,7 @@ export default {
 </script>
 
 <style>
+
 #checked-list{
   background:#D3DCE6;
   -border-right:2px solid #8492A6;
@@ -255,30 +282,87 @@ export default {
   
 }
 .offten-kind li {
-  padding:10px;
+  width:140px;
+  height:180px;
   border-radius:4px;
   float:left;
   margin-right:20px;
-  border:1px solid #58B7FF;
-  background:#EFF2F7;
+  background:#ffe29e;
   cursor:pointer;
+  overflow: hidden;
+  position: relative;
+  box-shadow:0px 1px 5px rgba(0,0,0,0.3);
+  transition:0.3s;
 }
-.offten-kind dt,.offten-kind dd{
+.offten-kind li:hover{
+  box-shadow:0 5px 15px rgba(0,0,0,0.3);
+  transform:scale(1.1,1.1);
+}
+.offten-kind li:after{
+  content:"have a good day";
+  position:absolute;
+  left:0;
+  bottom:0;
+  color:#051a37;
+  width:100%;
+  font-size:10px;
+  text-align:center;
+  line-height:20px;
+}
+/* .offten-kind dt,.offten-kind dd{
   float:left;
-}
+} */
 .offten-kind img {
-  width:50px;
-  height:50px;
-  margin-right:5px;
+  width:100px;
+  height:100px;
+  display: block;
+  margin:50px auto 0;
 }
 .offten-kind p{
-  height:30px;
-  line-height: 30px;
-  color:#FF4949;
+  position:absolute;
 }
-.offten-kind p:nth-child(2){
-  line-height: 20px;
-  height:20px;
-  color:#20A0FF;
+.offten-kind p:nth-of-type(1){
+  height:40px;
+  width:100px;
+  left:20px;
+  top:0;
+  color:#fff;
+  background:#051a37;
+  line-height:30px;
+  font-size:15px;
+  text-align:center;
+}
+.offten-kind p:nth-of-type(1):after{
+  content:"";
+  position:absolute;
+  width:0px;
+  height:0px;
+  bottom:0;
+  left:0;
+  border-width:0 50px 10px 50px;
+  border-color:transparent transparent #ffe29e transparent;
+  border-style:solid;
+}
+.offten-kind p:nth-of-type(2){
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  background:#fff;
+  color:#e51718;
+  left:10px;
+  bottom:20px;
+  text-align:center;
+  line-height:50px;
+  font-size:22px;
+  font-style:italic;
+}
+.offten-kind p:nth-of-type(2) b{
+  font-size:14px;
+  color:;
+  font-style:normal;
+  font-weight:normal;
+}
+.left-nav{
+  overflow: hidden;
 }
 </style>
