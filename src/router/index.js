@@ -1,15 +1,68 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
-
 Vue.use(Router)
 
-export default new Router({
-  routes: [
+import Home from '@/components/page/home'
+//pos页面
+import Pospage from '@/components/page/pospage/pospage'
+//头部和左侧导航
+import headerNav from '@/components/common/header'
+import leftNav from '@/components/common/leftNav'
+//404页面
+import Error from '@/components/page/errorpage/error'
+//折线图
+import Vline from '@/components/page/v-charts/line'
+//柱状图
+import Vcolumn from '@/components/page/v-charts/column'
+//条形图
+import Vbar from '@/components/page/v-charts/bar'
+//饼状图
+import Vpie from '@/components/page/v-charts/pie'
+
+
+
+
+let router = new Router({
+	mode:'history',
+  	routes: [
     {
-      path: '/',
-      name: 'Hello',
-      component: Hello
+	    path: '/',
+	    //name: 'home',
+	    component:Home,
+	    children:[
+      		{
+	      		path:'',
+	      		components:{head:headerNav,left:leftNav,default:Pospage},
+	      		name:"pospage"
+	      	},
+	      	{
+	      		path:'/error',
+	      		components:{head:headerNav,left:leftNav,default:Error},
+	      		name:'errorpage'
+	      	},
+	      	{
+	      		path:'/v-line',
+	      		components:{head:headerNav,left:leftNav,default:Vline},
+	      		name:'v-linepage'
+	      	},
+	      	{
+	      		path:'/v-column',
+	      		components:{head:headerNav,left:leftNav,default:Vcolumn},
+	      		name:'v-columnpage'
+	      	},
+	      	{
+	      		path:'/v-bar',
+	      		components:{head:headerNav,left:leftNav,default:Vbar},
+	      		name:'v-barpage'
+	      	},
+	      	{
+	      		path:'/v-pie',
+	      		components:{head:headerNav,left:leftNav,default:Vpie},
+	      		name:'v-piepage'
+	      	}
+      	]
     }
   ]
 })
+
+export default router
