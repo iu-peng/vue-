@@ -122,6 +122,7 @@ export default {
   mounted(){
     let checklist = document.querySelector('#checked-list')
     let offtenGoods = document.querySelector('#offten-goods')
+    //checklist.style.height = offtenGoods.style.height = (document.documentElement.clientHeight || document.body.clientHeight) -60 + 'px'
     //获取常用商品信息
     axios.get('http://localhost:3100/api/offtengoods')
     .then((data)=>{
@@ -214,12 +215,10 @@ export default {
 
 #checked-list{
   background:#D3DCE6;
-  height:100%;
   -border-right:2px solid #8492A6;
 }
 #offten-goods{
   background:#F9FAFC;
-  height:100%;
 }
 .offten-title{
   height:40px;

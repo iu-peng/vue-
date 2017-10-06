@@ -18,7 +18,13 @@ import Vcolumn from '@/components/page/v-charts/column'
 import Vbar from '@/components/page/v-charts/bar'
 //饼状图
 import Vpie from '@/components/page/v-charts/pie'
+//环状图
+import Vring from '@/components/page/v-charts/ring'
+//环状图
+import Vfunnel from '@/components/page/v-charts/funnel'
 
+//markdown
+import Markdown from '@/components/page/markdown/markdown'
 
 
 
@@ -59,6 +65,21 @@ let router = new Router({
 	      		path:'/v-pie',
 	      		components:{head:headerNav,left:leftNav,default:Vpie},
 	      		name:'v-piepage'
+	      	},
+	      	{
+	      		path:'/v-ring',
+	      		components:{head:headerNav,left:leftNav,default:Vring},
+	      		name:'v-ringpage'
+	      	},
+	      	{
+	      		path:'/v-funnel',
+	      		components:{head:headerNav,left:leftNav,default:Vfunnel},
+	      		name:'v-funnelpage'
+	      	},
+	      	{
+	      		path:'/v-markdown',
+	      		components:{head:headerNav,left:leftNav,default:Markdown},
+	      		name:'v-markdownpage'
 	      	}
       	]
     }

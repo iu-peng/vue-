@@ -10,11 +10,11 @@
 			return {
 				
 			}
-		},
+		}/*,
 		mounted(){
 			let neiH = (document.documentElement.clientHeight || document.body.clientHeight)-60
 			document.querySelector('.errorbox').style.height = neiH + 'px'
-		}
+		}*/
 	}
 </script>
 <style>

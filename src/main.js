@@ -7,7 +7,7 @@ import router from '@/router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 //引入样式表
-import '@/assets/css/index.css'
+import '@/assets/css/app.css'
 //引入v-charts表
 import VCharts from 'v-charts'
 
