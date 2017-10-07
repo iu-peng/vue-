@@ -13,6 +13,7 @@
 			return {
 				chartData:{},
 				chartSettings:{},
+				//省份拼音
 				positions:['beijing','tianjin','hebei','shanxi','neimenggu','liaoning','jilin','heilongjiang','shanghai','jiangsu','zhejiang','anhui','fujian','jiangxi','shandong','henan','hubei','hunan','guangdong','guangxi','hainan','chongqing','sichuan','guizhou','yunnan','xizang','gansu','qinghai','ningxia','xinjiang','xianggang','aomen','taiwan']
 			}
 		},

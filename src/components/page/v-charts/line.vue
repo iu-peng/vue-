@@ -18,10 +18,6 @@
 				chartSettings:{}
 			}
 		},
-		/*mounted(){
-			let neiH = (document.documentElement.clientHeight || document.body.clientHeight)-60
-			document.querySelector('.box').style.height = neiH + 'px'
-		},*/
 		created: function () {
 			this.chartData = {
 				columns: ['日期', '成本', '利润', '占比', '其他'],
