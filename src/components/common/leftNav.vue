@@ -1,7 +1,11 @@
 <template>
-	<el-menu default-active="2" theme="dark" class="left-nav">
+	<el-menu default-active="2" theme="dark" class="left-nav" :collapse="changeCollapse" unique-opened router>
+	<!-- router 启用route跳转路由模式 -->
 		<el-submenu index="1">
-			<template slot="title"><i class="el-icon-message"></i>导航</template>
+			<template slot="title">
+				<i class="el-icon-message"></i>
+				<span slot="title">导航</span>
+			</template>
 			<el-menu-item-group>
 				<template slot="title">分组一</template>
 				<el-menu-item index="1-1">选项1</el-menu-item>
@@ -16,56 +20,67 @@
 			</el-submenu>
 		</el-submenu>
 		<!-- pos收银栏 -->
-		<el-menu-item index="2">
+		<el-menu-item index="2" :route="{name:'pospage'}">
 			<i class="iconfont icon-iconset0315"></i>
-			<router-link :to="{name:'pospage'}" tag="span">Pos收银系统</router-link>
+			<span>Pos收银系统</span>
 		</el-menu-item>
 		<!-- 404栏 -->
-		<el-menu-item index="3">
+		<el-menu-item index="3" :route="{name:'errorpage'}">
 			<i class="iconfont icon-icon-test"></i>
-			<router-link :to="{name:'errorpage'}" tag="span">404</router-link>
+			<span>404</span>
 		</el-menu-item>
 		<!-- 图表栏 -->
 		<el-submenu index="4">
-			<template slot="title"><i class="el-icon-menu"></i>v-charts图表</template>
+			<template slot="title">
+				<i class="el-icon-menu"></i>
+				<span>v-charts图表</span>
+			</template>
 			<el-menu-item-group class="son-menu">
-				<el-menu-item index="4-1">
+				<el-menu-item index="4-1" :route="{name:'v-linepage'}">
 					<i class="iconfont icon-zhexian"></i>
-					<router-link :to="{name:'v-linepage'}" tag="p">折线图</router-link>
+					<span>折线图</span>
 				</el-menu-item>
-				<el-menu-item index="4-2">
+				<el-menu-item index="4-2" :route="{name:'v-columnpage'}">
 					<i class="iconfont icon-zhuzhuangtu"></i>
-					<router-link :to="{name:'v-columnpage'}" tag="p">柱状图</router-link>
+					<span>柱状图</span>
 				</el-menu-item>
-				<el-menu-item index="4-3">
+				<el-menu-item index="4-3" :route="{name:'v-barpage'}">
 					<i class="iconfont icon-bar-chart-h"></i>
-					<router-link :to="{name:'v-barpage'}" tag="p">条形图</router-link>
+					<span>条形图</span>
 				</el-menu-item>
-				<el-menu-item index="4-4">
+				<el-menu-item index="4-4" :route="{name:'v-piepage'}">
 					<i class="iconfont icon-bingzhangtu"></i>
-					<router-link :to="{name:'v-piepage'}" tag="p">饼状图</router-link>
+					<span>饼状图</span>
 				</el-menu-item>
-				<el-menu-item index="4-5">
+				<el-menu-item index="4-5" :route="{name:'v-ringpage'}">
 					<i class="iconfont icon-ring-chart"></i>
-					<router-link :to="{name:'v-ringpage'}" tag="p">环状图</router-link>
+					<span>环状图</span>
 				</el-menu-item>
-				<el-menu-item index="4-6">
+				<el-menu-item index="4-6" :route="{name:'v-funnelpage'}">
 					<i class="iconfont icon-loudoutu"></i>
-					<router-link :to="{name:'v-funnelpage'}" tag="p">漏斗图</router-link>
+					<span>漏斗图</span>
+				</el-menu-item>
+				<el-menu-item index="4-7" :route="{name:'v-radarpage'}">
+					<i class="iconfont icon-loudoutu"></i>
+					<span>雷达图</span>
+				</el-menu-item>
+				<el-menu-item index="4-8" :route="{name:'v-mappage'}">
+					<i class="iconfont icon-loudoutu"></i>
+					<span>地图</span>
 				</el-menu-item>
 			</el-menu-item-group>
 		</el-submenu>
-		<el-menu-item index="5">
+		<el-menu-item index="5" :route="{name:'v-markdownpage'}">
 			<i class="iconfont icon-markdown"></i>
-			<router-link :to="{name:'v-markdownpage'}" tag="span">markdown</router-link>
+			<span>markdown</span>
 		</el-menu-item>
-		<el-menu-item index="6">
+		<el-menu-item index="6" :route="{name:'errorpage'}">
 			<i class="el-icon-setting"></i>
-			<router-link :to="{name:'errorpage'}" tag="span">404</router-link>
+			<span>404</span>
 		</el-menu-item>
-		<el-menu-item index="7">
+		<el-menu-item index="7" :route="{name:'errorpage'}">
 			<i class="el-icon-setting"></i>
-			<router-link :to="{name:'errorpage'}" tag="span">404</router-link>
+			<span>404</span>
 		</el-menu-item>
 	</el-menu>
 </template>
@@ -76,7 +91,9 @@
 			return {
 				
 			}
-		}
+		},
+		props:['changeCollapse']
+
 	}
 </script>
 <style>
@@ -85,6 +102,10 @@
 	 	overflow-y:auto;
 	 	overflow-x:hidden;
 	}
+	/* .left-nav:not(.el-menu--collapse) {
+	    min-width: 200px;
+	    min-height: 400px;
+	  } */
 	::-webkit-scrollbar {
 	    width: 0px;
 	    height: 1px;
@@ -92,7 +113,7 @@
 	::-webkit-scrollbar-thumb {
 	    border-radius: 5px;
 	    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-	    background: rgba(0, 0, 0, 0.2);
+	    background: #fff;
 	}
 	.son-menu i,.son-menu p{
 		display:inline-block;

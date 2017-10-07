@@ -20,8 +20,12 @@ import Vbar from '@/components/page/v-charts/bar'
 import Vpie from '@/components/page/v-charts/pie'
 //环状图
 import Vring from '@/components/page/v-charts/ring'
-//环状图
+//漏斗图
 import Vfunnel from '@/components/page/v-charts/funnel'
+//雷达图
+import Vradar from '@/components/page/v-charts/radar'
+//地图
+import Vmap from '@/components/page/v-charts/map'
 
 //markdown
 import Markdown from '@/components/page/markdown/markdown'
@@ -75,6 +79,16 @@ let router = new Router({
 	      		path:'/v-funnel',
 	      		components:{head:headerNav,left:leftNav,default:Vfunnel},
 	      		name:'v-funnelpage'
+	      	},
+	      	{
+	      		path:'/v-radar',
+	      		components:{head:headerNav,left:leftNav,default:Vradar},
+	      		name:'v-radarpage'
+	      	},
+	      	{
+	      		path:'/v-map',
+	      		components:{head:headerNav,left:leftNav,default:Vmap},
+	      		name:'v-mappage'
 	      	},
 	      	{
 	      		path:'/v-markdown',
