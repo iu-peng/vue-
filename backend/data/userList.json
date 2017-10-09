@@ -1,0 +1,22 @@
+[
+    {
+        "username":"123456@yahoo.com",
+        "password":"111222"
+    },
+    {
+        "username":"123456@163.com",
+        "password":"111222"
+    },
+    {
+        "username":"123456@126.com",
+        "password":"111222"
+    },
+    {
+        "username":"123456@qq.com",
+        "password":"111222"
+    },
+    {
+        "username":"123456@sina.com",
+        "password":"111222"
+    }
+]

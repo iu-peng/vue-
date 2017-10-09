@@ -229,6 +229,99 @@ app.post('/api/delOne', (req, res) => {
   }
 })
 
+//用户名验证
+app.post('/api/loginUserName', (req, res) => {
+  let {username} = req.body
+  let isExist = fs.existsSync('./data/userList.json')
+  let arr = []
+  if(isExist){
+    let d = fs.readFileSync('./data/userList.json')
+    if(d.toString()){
+      arr = JSON.parse(d)
+    }
+  }
+  //let getDate = JSON.parse({username});
+  //console.log(getDate)
+  //console.log(username)
+
+  let findData = arr.find((item) => {
+    return item.username === username
+  })
+  //如果用户名存在
+  if(findData){
+    res.send({
+      code: 0,
+      mesText: '用户名存在',
+      validate:true
+    })
+    return;
+  }else {
+    res.send({
+      code: 1,
+      mesText: '用户名不存在',
+      validate:false
+    })
+  }
+  /*fs.writeFileSync('./data/userList.json', JSON.stringify(arr))
+  res.send({
+    code: 0,
+    order_list: arr
+  })*/
+
+
+})
+
+
+//用户密码验证
+app.post('/api/loginPassword', (req, res) => {
+  let {username,password} = req.body
+  let isExist = fs.existsSync('./data/userList.json')
+  let arr = []
+  if(isExist){
+    let d = fs.readFileSync('./data/userList.json')
+    if(d.toString()){
+      arr = JSON.parse(d)
+    }
+  }
+  //let getDate = JSON.parse(username);
+  //console.log(username,password)
+
+  let findData = arr.find((item) => {
+    return item.username === username
+  })
+
+  //如果用户名存在
+  if(findData){
+    //用户名和密码匹配
+    if(findData.password === password){
+      res.send({
+        code: 0,
+        mesText: '密码正确',
+        validate:true
+      })
+      return;
+    }else{
+      res.send({
+        code: 1,
+        mesText: '密码错误',
+        validate:false
+      })
+    }
+  }else {
+    res.send({
+      code: 1,
+      mesText: '用户名不存在',
+      validate:false
+    })
+  }
+  /*fs.writeFileSync('./data/userList.json', JSON.stringify(arr))
+  res.send({
+    code: 0,
+    order_list: arr
+  })*/
+
+
+})
 /*app.get('/item', (req, res) => {
   let {id} = req.query;
 

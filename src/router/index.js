@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 Vue.use(Router)
 
+import Login from '@/components/page/login'
+
 import Home from '@/components/page/home'
 //pos页面
 import Pospage from '@/components/page/pospage/pospage'
@@ -35,8 +37,13 @@ import Markdown from '@/components/page/markdown/markdown'
 let router = new Router({
 	mode:'history',
   	routes: [
+  	{
+  		path:'/',
+  		component:Login,
+  		name:'login'
+  	},
     {
-	    path: '/',
+	    path: '/home',
 	    //name: 'home',
 	    component:Home,
 	    children:[

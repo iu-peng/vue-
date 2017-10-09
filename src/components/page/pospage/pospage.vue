@@ -331,7 +331,6 @@ export default {
 }
 .offten-kind p:nth-of-type(2) b{
   font-size:14px;
-  color:;
   font-style:normal;
   font-weight:normal;
 }
