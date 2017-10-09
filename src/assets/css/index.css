@@ -1,0 +1,19 @@
+body {
+	margin:0;
+	background: #475669;
+}
+p,h2,h3,ul,li,dl,dt,dd {
+	margin:0;
+	padding:0;
+}
+ul,li {
+	list-style:none;
+}
+.clearfix:after {
+	content:'';
+	overflow: hidden;
+	display:block;
+	clear:both;
+	visibility:hidden;
+	height:0;
+}
