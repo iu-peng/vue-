@@ -20,7 +20,13 @@
                     ></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" style="width:100%" @click="submitForm">登录</el-button>
+                    <el-button 
+                        type="primary" 
+                        style="width:100%"  
+                        @click="submitForm"
+                        v-loading.fullscreen.lock="fullscreenLoading" 
+                        element-loading-text="正在登录···"
+                    >登录</el-button>
                 </el-form-item>
                 <div class="error">{{error}}</div>
             </el-form>
@@ -67,7 +73,10 @@ export default {
         };
         return {
             userRight:false,
+            //提示信息
             error:'',
+            //全屏加载
+            fullscreenLoading:false,
             ruleForm2: {
                 pass: '',
                 username: '123456@yahoo.com'
@@ -84,18 +93,29 @@ export default {
     },
     methods: {
         submitForm() {
+            this.fullscreenLoading = true;
             axios.post('http://localhost:3100/api/loginPassword',
                 {username:this.ruleForm2.username,password:this.ruleForm2.pass})
             .then((data)=>{
+                this.fullscreenLoading = false;
                 if(data.data.validate){
                     this.$router.push({path:'/home'})
+                    this.fullscreenLoading = false;
+                    /*setTimeout(() => {
+                        this.fullscreenLoading = false;
+                        this.$router.push({path:'/home'})
+                    }, 300);*/
+                    
                 }else{
-                    this.error = '密码错误！'
+                    this.error = '密码错误!'
                 }
             })
+        },
+        openFullScreen() {
+            
         }
     }
-  }
+}
 </script>
 
 <style>
@@ -114,9 +134,21 @@ export default {
     -background:#fff;
 }
 .el-form{
-    border:1px solid red;
+    -border:1px solid #fff;
+    animation: boxshadow 3s infinite;
     padding:20px;
     border-radius:10px;
+}
+@keyframes boxshadow{
+    0%{
+        box-shadow:0 0 0px #fff;
+    }
+    50%{
+        box-shadow:0 0 15px #fff;
+    }
+    100%{
+        box-shadow:0 0 0px #fff;
+    }
 }
 .bt{
     text-align:center;

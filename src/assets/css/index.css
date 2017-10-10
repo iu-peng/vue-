@@ -1,6 +1,8 @@
 body {
 	margin:0;
-	background: #475669;
+	height:100%;
+	background:rgb(245, 245, 255) url(../img/posbg.png);
+	font-family:"微软雅黑";
 }
 p,h2,h3,ul,li,dl,dt,dd {
 	margin:0;

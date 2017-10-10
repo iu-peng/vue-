@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div id="pospage">
       <!-- 订单页 -->
       <el-col :span="11" id="checked-list">
         <el-tabs type="border-card">
           <el-tab-pane label="订单">
-            <el-table :data="checkedList" border show-summary stripe style="width: 100%">
+            <el-table :data="checkedList" border stripe style="width: 100%">
                 <!-- stripe：斑纹线 show-summary:计算合计 border:边框 -->
                 <el-table-column 
                   resizable prop="goodsName" 
@@ -21,7 +21,7 @@
                 <el-table-column 
                   prop="price" 
                   align="center" 
-                  label="金额" 
+                  label="单价" 
                   min-width="80"
                 ></el-table-column>
                 <el-table-column label="操作" align="center"  min-width="220" prop="goodsId">
@@ -32,7 +32,7 @@
                   </template>
                 </el-table-column>
               </el-table>
-              {{orderNum}}----{{orderPrice}}
+              <p class="total">数量：<span>{{orderNum}}</span>件; 总价<span>{{orderPrice}}</span>元</p>
           </el-tab-pane>
           <el-tab-pane label="外卖">外卖</el-tab-pane>
           <el-tab-pane label="挂单">挂单</el-tab-pane>
@@ -211,14 +211,27 @@ export default {
 </script>
 
 <style>
-
+#pospage{
+  -background:rgb(245, 245, 255) url(../../../assets/img/posbg.png);
+}
 #checked-list{
-  background:#D3DCE6;
+  -background:#D3DCE6;
   height:100%;
   -border-right:2px solid #8492A6;
 }
+.total{
+  height:30px;
+  line-height:30px;
+  color:#000;
+  text-align:center;
+}
+.total span {
+  color:#f22100;
+  font-weight:bolder;
+  padding:0 10px;
+}
 #offten-goods{
-  background:#F9FAFC;
+  -background:#F9FAFC;
   height:100%;
 }
 .offten-title{
@@ -264,12 +277,12 @@ export default {
   cursor:pointer;
   overflow: hidden;
   position: relative;
-  box-shadow:0px 1px 5px rgba(0,0,0,0.3);
+  box-shadow: 0 10px 16px rgba(0,0,0,.1);
   transition:0.3s;
 }
 .offten-kind li:hover{
-  box-shadow:0 5px 15px rgba(0,0,0,0.3);
-  transform:scale(1.1,1.1);
+  transform: translateY(-5px);
+  box-shadow: 0 12px 18px rgba(0,0,0,.15);
 }
 .offten-kind li:after{
   content:"have a good day";

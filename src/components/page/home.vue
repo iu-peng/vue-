@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="poshome">
     <router-view name="head" @asideclose="changeAsideClose"></router-view>
     <el-row>
       <!-- 侧边页 -->
@@ -47,8 +47,23 @@ export default {
   padding-left:15px;
   -color:#fff;
 }
+#poshome{
+  position: absolute;
+  height:100%;
+  width:100%;
+  background:rgb(245, 245, 255) url(../../assets/img/posbg.png);
+}
+.content{
+  padding:20px;
+}
 .client-content{
   height:100%;
+  overflow:hidden;
+  border:1px solid #404853;
+  border-radius:5px;
+}
+.client-content .box{
+  margin-top:30px;
 }
 .aside{
   overflow:hidden;

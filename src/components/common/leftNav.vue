@@ -101,6 +101,7 @@
 		height:100%;
 	 	overflow-y:auto;
 	 	overflow-x:hidden;
+	 	border-radius:0px;
 	}
 	/* .left-nav:not(.el-menu--collapse) {
 	    min-width: 200px;
@@ -111,7 +112,7 @@
 	    height: 1px;
 	}
 	::-webkit-scrollbar-thumb {
-	    border-radius: 5px;
+	    -border-radius: 5px;
 	    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
 	    background: #fff;
 	}

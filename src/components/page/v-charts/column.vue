@@ -56,8 +56,7 @@
 	.box{
 		width:800px;
 		height:500px;
-		margin:10px auto;
-		background:#fff;
+		margin:30px auto;
 		
 	}
 	.b-box{

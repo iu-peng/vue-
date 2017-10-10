@@ -41,4 +41,7 @@
 	.el-menu-demo{
 		padding-left:12.5%;
 	}
+	.el-menu{
+		border-radius:0;
+	}
 </style>
