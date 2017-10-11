@@ -194,6 +194,6 @@
 		}
 	}
 </script>
-<style>
+<style scoped>
 	canvas { display:inline-block; margin:0 auto; }
 </style>

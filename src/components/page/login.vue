@@ -1,5 +1,6 @@
 <template>
     <div id="login">
+        <canvas-login></canvas-login>
         <div class="login-box">
             <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" class="demo-ruleForm">
                 <h2 class="bt">用户登录</h2>
@@ -37,7 +38,20 @@
 
 <script>
 import axios from 'axios'
+import canvasLogin from '@/components/page/canvaslogin/canvaslogin'
+
+//元素居中方法
+function _center(dom){
+    dom.style.position = 'absolute';
+    dom.style.top = '50%';
+    dom.style.left = '50%';
+    dom.style['margin-top'] = - dom.offsetHeight / 2 + 'px';
+    dom.style['margin-left'] = - dom.offsetWidth / 2 + 'px';
+}
 export default {
+    components:{
+        canvasLogin
+    },
     data() {
         var validateUserName = (rule, value, callback) => {
             if (value === '') {
@@ -114,6 +128,13 @@ export default {
         openFullScreen() {
             
         }
+    },
+    mounted(){
+        let w = document.documentElement.offsetWidth;
+        let h = document.documentElement.offsetHeight;
+
+        let loginBox = document.querySelector('.login-box')
+        _center(loginBox)
     }
 }
 </script>
@@ -128,16 +149,17 @@ export default {
     top: 0;
 }
 .login-box{
+    position:absolute;
+    left:50%;
+    top:50%;
     width:350px;
-    padding:20px;
-    margin:80px auto 0;
-    -background:#fff;
+    animation: boxshadow 3s infinite;
+    border-radius:10px;
+    background:rgba(112, 128, 144, 0.2);
 }
 .el-form{
-    -border:1px solid #fff;
-    animation: boxshadow 3s infinite;
     padding:20px;
-    border-radius:10px;
+    
 }
 @keyframes boxshadow{
     0%{

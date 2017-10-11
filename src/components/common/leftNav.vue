@@ -74,9 +74,9 @@
 			<i class="iconfont icon-markdown"></i>
 			<span>markdown</span>
 		</el-menu-item>
-		<el-menu-item index="6" :route="{name:'errorpage'}">
+		<el-menu-item index="6" :route="{name:'ueditorpage'}">
 			<i class="el-icon-setting"></i>
-			<span>404</span>
+			<span>富文本编辑</span>
 		</el-menu-item>
 		<el-menu-item index="7" :route="{name:'errorpage'}">
 			<i class="el-icon-setting"></i>

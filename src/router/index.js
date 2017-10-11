@@ -31,7 +31,8 @@ import Vmap from '@/components/page/v-charts/map'
 
 //markdown
 import Markdown from '@/components/page/markdown/markdown'
-
+//富文本编辑ueditor
+import Ueditor from '@/components/page/ueditor/ueditor'
 
 
 let router = new Router({
@@ -101,6 +102,11 @@ let router = new Router({
 	      		path:'/v-markdown',
 	      		components:{head:headerNav,left:leftNav,default:Markdown},
 	      		name:'v-markdownpage'
+	      	},
+	      	{
+	      		path:'/ueditor',
+	      		components:{head:headerNav,left:leftNav,default:Ueditor},
+	      		name:'ueditorpage'
 	      	}
       	]
     }

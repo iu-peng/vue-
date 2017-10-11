@@ -10,7 +10,11 @@ import 'element-ui/lib/theme-default/index.css'
 import '@/assets/css/app.css'
 //引入v-charts表
 import VCharts from 'v-charts'
-
+//引入ueditor
+import '../static/ueditor/ueditor.config.js'
+import '../static/ueditor/ueditor.all.min.js'
+import '../static/ueditor/lang/zh-cn/zh-cn.js'
+import '../static/ueditor/ueditor.parse.min.js'
 
 Vue.config.productionTip = false
 
