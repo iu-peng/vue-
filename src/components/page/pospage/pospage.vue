@@ -203,6 +203,7 @@ export default {
       this.checkedList.forEach((item)=>{
         n += item.count*item.price
       })
+      this.$emit('inallprice',n)
       return n
     }
   }

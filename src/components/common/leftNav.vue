@@ -19,15 +19,15 @@
 				<el-menu-item index="1-4-1">选项1</el-menu-item>
 			</el-submenu>
 		</el-submenu>
-		<!-- pos收银栏 -->
-		<el-menu-item index="2" :route="{name:'pospage'}">
-			<i class="iconfont icon-iconset0315"></i>
-			<span>Pos收银系统</span>
-		</el-menu-item>
 		<!-- 总结页面 -->
 		<el-menu-item index="3" :route="{name:'inallpage'}">
 			<i class="iconfont icon-iconset0315"></i>
 			<span>汇总页</span>
+		</el-menu-item>
+		<!-- pos收银栏 -->
+		<el-menu-item index="2" :route="{name:'pospage'}">
+			<i class="iconfont icon-iconset0315"></i>
+			<span>Pos收银系统</span>
 		</el-menu-item>
 		<!-- 404栏 -->
 		<el-menu-item index="4" :route="{name:'errorpage'}">

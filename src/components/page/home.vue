@@ -14,7 +14,7 @@
           <el-breadcrumb-item>活动列表</el-breadcrumb-item>
           <el-breadcrumb-item>活动详情</el-breadcrumb-item>
         </el-breadcrumb> -->
-        <router-view class="client-content"></router-view>
+        <router-view @inallprice="inallprice" :priceAll="priceAll" class="client-content"></router-view>
       </el-col>
     </el-row>
   </div>
@@ -24,12 +24,16 @@
 export default {
   data(){
     return {
-      isCollapse:false
+      isCollapse:false,
+      priceAll:0
     }
   },
   methods:{
     changeAsideClose(a){
       this.isCollapse = !this.isCollapse
+    },
+    inallprice(n){
+      this.priceAll = n
     }
   },
   mounted(){

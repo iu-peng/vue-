@@ -50,68 +50,68 @@ let router = new Router({
 	    //name: 'home',
 	    component:Home,
 	    children:[
+	      	{
+	      		path:'/',
+	      		components:{head:headerNav,left:leftNav,default:Inall},
+	      		name:'inallpage'
+	      	},
       		{
-	      		path:'',
+	      		path:'possystem',
 	      		components:{head:headerNav,left:leftNav,default:Pospage},
 	      		name:"pospage"
 	      	},
 	      	{
-	      		path:'/error',
+	      		path:'error',
 	      		components:{head:headerNav,left:leftNav,default:Error},
 	      		name:'errorpage'
 	      	},
 	      	{
-	      		path:'/inall',
-	      		components:{head:headerNav,left:leftNav,default:Inall},
-	      		name:'inallpage'
-	      	},
-	      	{
-	      		path:'/v-line',
+	      		path:'v-line',
 	      		components:{head:headerNav,left:leftNav,default:Vline},
 	      		name:'v-linepage'
 	      	},
 	      	{
-	      		path:'/v-column',
+	      		path:'v-column',
 	      		components:{head:headerNav,left:leftNav,default:Vcolumn},
 	      		name:'v-columnpage'
 	      	},
 	      	{
-	      		path:'/v-bar',
+	      		path:'v-bar',
 	      		components:{head:headerNav,left:leftNav,default:Vbar},
 	      		name:'v-barpage'
 	      	},
 	      	{
-	      		path:'/v-pie',
+	      		path:'v-pie',
 	      		components:{head:headerNav,left:leftNav,default:Vpie},
 	      		name:'v-piepage'
 	      	},
 	      	{
-	      		path:'/v-ring',
+	      		path:'v-ring',
 	      		components:{head:headerNav,left:leftNav,default:Vring},
 	      		name:'v-ringpage'
 	      	},
 	      	{
-	      		path:'/v-funnel',
+	      		path:'v-funnel',
 	      		components:{head:headerNav,left:leftNav,default:Vfunnel},
 	      		name:'v-funnelpage'
 	      	},
 	      	{
-	      		path:'/v-radar',
+	      		path:'v-radar',
 	      		components:{head:headerNav,left:leftNav,default:Vradar},
 	      		name:'v-radarpage'
 	      	},
 	      	{
-	      		path:'/v-map',
+	      		path:'v-map',
 	      		components:{head:headerNav,left:leftNav,default:Vmap},
 	      		name:'v-mappage'
 	      	},
 	      	{
-	      		path:'/v-markdown',
+	      		path:'v-markdown',
 	      		components:{head:headerNav,left:leftNav,default:Markdown},
 	      		name:'v-markdownpage'
 	      	},
 	      	{
-	      		path:'/ueditor',
+	      		path:'ueditor',
 	      		components:{head:headerNav,left:leftNav,default:Ueditor},
 	      		name:'ueditorpage'
 	      	}
