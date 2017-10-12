@@ -1,6 +1,6 @@
 <template>
     <div id="login">
-        <canvas-login></canvas-login>
+        <!-- <canvas-login></canvas-login> -->
         <div class="login-box">
             <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" class="demo-ruleForm">
                 <h2 class="bt">用户登录</h2>
@@ -144,7 +144,7 @@ export default {
     position: absolute;
     height: 100vh;
     width: 100%;
-    background-color: #2d3a4b;
+    -background-color: #2d3a4b;
     left: 0;
     top: 0;
 }

@@ -135,7 +135,6 @@ export default {
     //获取订单信息
     axios.get('http://localhost:3100/api/getOrderList')
     .then((data)=>{
-      console.log(data)
       this.checkedList = data.data.order_list
     })
   },

@@ -2,9 +2,11 @@ import Vue from 'vue'
 import Router from 'vue-router'
 Vue.use(Router)
 
-import Login from '@/components/page/login'
-
 import Home from '@/components/page/home'
+//总结页面
+import Inall from '@/components/page/inallpage/inall'
+
+import Login from '@/components/page/login'
 //pos页面
 import Pospage from '@/components/page/pospage/pospage'
 //头部和左侧导航
@@ -57,6 +59,11 @@ let router = new Router({
 	      		path:'/error',
 	      		components:{head:headerNav,left:leftNav,default:Error},
 	      		name:'errorpage'
+	      	},
+	      	{
+	      		path:'/inall',
+	      		components:{head:headerNav,left:leftNav,default:Inall},
+	      		name:'inallpage'
 	      	},
 	      	{
 	      		path:'/v-line',

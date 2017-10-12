@@ -24,47 +24,52 @@
 			<i class="iconfont icon-iconset0315"></i>
 			<span>Pos收银系统</span>
 		</el-menu-item>
+		<!-- 总结页面 -->
+		<el-menu-item index="3" :route="{name:'inallpage'}">
+			<i class="iconfont icon-iconset0315"></i>
+			<span>汇总页</span>
+		</el-menu-item>
 		<!-- 404栏 -->
-		<el-menu-item index="3" :route="{name:'errorpage'}">
+		<el-menu-item index="4" :route="{name:'errorpage'}">
 			<i class="iconfont icon-icon-test"></i>
 			<span>404</span>
 		</el-menu-item>
 		<!-- 图表栏 -->
-		<el-submenu index="4">
+		<el-submenu index="5">
 			<template slot="title">
 				<i class="el-icon-menu"></i>
 				<span>v-charts图表</span>
 			</template>
 			<el-menu-item-group class="son-menu">
-				<el-menu-item index="4-1" :route="{name:'v-linepage'}">
+				<el-menu-item index="5-1" :route="{name:'v-linepage'}">
 					<i class="iconfont icon-zhexian"></i>
 					<span>折线图</span>
 				</el-menu-item>
-				<el-menu-item index="4-2" :route="{name:'v-columnpage'}">
+				<el-menu-item index="5-2" :route="{name:'v-columnpage'}">
 					<i class="iconfont icon-zhuzhuangtu"></i>
 					<span>柱状图</span>
 				</el-menu-item>
-				<el-menu-item index="4-3" :route="{name:'v-barpage'}">
+				<el-menu-item index="5-3" :route="{name:'v-barpage'}">
 					<i class="iconfont icon-bar-chart-h"></i>
 					<span>条形图</span>
 				</el-menu-item>
-				<el-menu-item index="4-4" :route="{name:'v-piepage'}">
+				<el-menu-item index="5-4" :route="{name:'v-piepage'}">
 					<i class="iconfont icon-bingzhangtu"></i>
 					<span>饼状图</span>
 				</el-menu-item>
-				<el-menu-item index="4-5" :route="{name:'v-ringpage'}">
+				<el-menu-item index="5-5" :route="{name:'v-ringpage'}">
 					<i class="iconfont icon-ring-chart"></i>
 					<span>环状图</span>
 				</el-menu-item>
-				<el-menu-item index="4-6" :route="{name:'v-funnelpage'}">
+				<el-menu-item index="5-6" :route="{name:'v-funnelpage'}">
 					<i class="iconfont icon-loudoutu"></i>
 					<span>漏斗图</span>
 				</el-menu-item>
-				<el-menu-item index="4-7" :route="{name:'v-radarpage'}">
+				<el-menu-item index="5-7" :route="{name:'v-radarpage'}">
 					<i class="iconfont icon-loudoutu"></i>
 					<span>雷达图</span>
 				</el-menu-item>
-				<el-menu-item index="4-8" :route="{name:'v-mappage'}">
+				<el-menu-item index="5-8" :route="{name:'v-mappage'}">
 					<i class="iconfont icon-loudoutu"></i>
 					<span>地图</span>
 				</el-menu-item>
@@ -74,11 +79,11 @@
 			<i class="iconfont icon-markdown"></i>
 			<span>markdown</span>
 		</el-menu-item>
-		<el-menu-item index="6" :route="{name:'ueditorpage'}">
+		<el-menu-item index="7" :route="{name:'ueditorpage'}">
 			<i class="el-icon-setting"></i>
 			<span>富文本编辑</span>
 		</el-menu-item>
-		<el-menu-item index="7" :route="{name:'errorpage'}">
+		<el-menu-item index="8" :route="{name:'errorpage'}">
 			<i class="el-icon-setting"></i>
 			<span>404</span>
 		</el-menu-item>
