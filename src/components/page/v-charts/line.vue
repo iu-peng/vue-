@@ -6,7 +6,7 @@
 			:data-zoom="dataZoom" 
 			:settings="chartSettings"
 		></ve-line>
-		<el-button type="primary" class="btn" @click="change">堆叠面积</el-button>
+		<el-button :plain="true" type="success" class="btn" @click="change">堆叠面积</el-button>
 	</div>
 </template>
 

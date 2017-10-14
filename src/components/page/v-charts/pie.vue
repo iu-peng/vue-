@@ -2,8 +2,8 @@
 	<div class="box">
 		 <ve-pie :data="chartData" :settings="chartSettings"></ve-pie>
 		<div class="b-box">
-			<el-button type="primary" class="btn" @click="change">南丁格尔玫瑰图</el-button>
-			<el-button type="primary" class="btn" @click="change2">同心圆饼图</el-button>
+			<el-button :plain="true" type="success" class="btn" @click="change">南丁格尔玫瑰图</el-button>
+			<el-button :plain="true" type="success" class="btn" @click="change2">同心圆饼图</el-button>
 		</div>
 	</div>
 </template>

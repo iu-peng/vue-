@@ -1,7 +1,7 @@
 <template>
 	<div id="inall">
 		<el-row :gutter="20">
-			<el-col :span="6" v-for="item,index in countNum">
+			<el-col :span="6" v-for="item,index in countNum" key="index">
 				<div class="tip">
 					<p class="tip-kind">
 						{{item.name}}
@@ -18,57 +18,6 @@
 					</div>
 				</div>
 			</el-col>
-			<!-- <el-col :span="6">
-				<div class="tip">
-					<p class="tip-kind">
-						特色小吃：<span>3</span>份
-					</p>
-					<div class="tip-detail">
-						<p class="detail-each">
-							<b>单价</b>
-							<span>12元</span>
-						</p>
-						<p class="detail-inall">
-							<b>总价</b>
-							<span>121元</span>
-						</p>
-					</div>
-				</div>
-			</el-col>
-			<el-col :span="6">
-				<div class="tip">
-					<p class="tip-kind">
-						饮料：<span>3</span>份
-					</p>
-					<div class="tip-detail">
-						<p class="detail-each">
-							<b>单价</b>
-							<span>12元</span>
-						</p>
-						<p class="detail-inall">
-							<b>总价</b>
-							<span>121元</span>
-						</p>
-					</div>
-				</div>
-			</el-col>
-			<el-col :span="6">
-				<div class="tip">
-					<p class="tip-kind">
-						套餐：<span>3</span>份
-					</p>
-					<div class="tip-detail">
-						<p class="detail-each">
-							<b>单价</b>
-							<span>12元</span>
-						</p>
-						<p class="detail-inall">
-							<b>总价</b>
-							<span>121元</span>
-						</p>
-					</div>
-				</div>
-			</el-col> -->
 		</el-row>
 		<el-row class="charts">
 			<ve-histogram :data="chartData" :settings="chartSettings"></ve-histogram>
@@ -106,14 +55,16 @@
 				rows:this.rows
 			}
 			this.chartSettings = {
-				axisSite: { right: ['占比'] },
-				yAxisName: ['数值', '比率'],
+				axisSite: { right: ['价格比例'] },
+				yAxisType: ['normal', 'percent'],
+				yAxisName: ['数值', '价格比例'],
 				metrics: ['总数量', '总价','价格比例'],
 				stack:'',
 				label: {
 			        normal: { show: true, position: "top" }
 			    }
 			}
+
 		},
 		mounted(){
 			axios.get('http://localhost:3100/api/getOrderList')
@@ -145,7 +96,8 @@
 					//总价格
 					this.kindsDetailsArr[index].priceAll = p
 					this.rows[index]['总价'] = p
-					this.rows[index]['价格比例'] = Math.round(p/this.priceAll*100)
+					//toFixed 保留两位小数
+					this.rows[index]['价格比例'] = (p/this.priceAll).toFixed(2)
 				})
 				return this.kindsDetailsArr
 			}
@@ -155,6 +107,9 @@
 <style scoped>
 #inall{
 	padding:20px 20px 0;
+}
+.el-col{
+	cursor:pointer;
 }
 .tip{
 	border-radius:5px;
@@ -169,7 +124,7 @@
 	text-align:center;
 	font-size:25px;
 }
-.el-col:nth-child(1) .tip-kind{
+.el-col:nth-child(1)  p.tip-kind{
 	background:#a0d468;
 }
 .el-col:nth-child(2) .tip-kind{
@@ -196,11 +151,12 @@
 	line-height:25px;
 	font-size:15px;
 	text-align:center;
-	color:#444;
+	color:#999;
+	font-weight:bolder;
 }
 .tip-detail p span{
 	font-size:18px;
-	color:#555;
+	color:#444;
 }
 .tip:hover{
   transform: translateY(-5px);

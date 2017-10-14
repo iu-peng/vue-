@@ -7,7 +7,7 @@
 			mode="horizontal" 
 		>
 			<el-menu-item index="1" @click="changeCollapse">
-				<i class="iconfont icon-bar-chart-h"></i>
+				<i class="iconfont icon-zhedie-copy"></i>
 			</el-menu-item>
 			<el-menu-item index="2">处理中心</el-menu-item>
 				<el-submenu index="3">

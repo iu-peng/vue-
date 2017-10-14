@@ -1,22 +1,19 @@
-[
-    {
-        "username":"123456@yahoo.com",
-        "password":"111222"
-    },
-    {
-        "username":"123456@163.com",
-        "password":"111222"
-    },
-    {
-        "username":"123456@126.com",
-        "password":"111222"
-    },
-    {
-        "username":"123456@qq.com",
-        "password":"111222"
-    },
-    {
-        "username":"123456@sina.com",
-        "password":"111222"
-    }
-]
+[{
+    "username": "123456@yahoo.com",
+    "password": "w111222"
+}, {
+    "username": "123456@163.com",
+    "password": "w111222"
+}, {
+    "username": "123456@126.com",
+    "password": "w111222"
+}, {
+    "username": "123456@qq.com",
+    "password": "w111222"
+}, {
+    "username": "123456@sina.com",
+    "password": "w111222"
+}, {
+    "username": "1234dddd56@yahoo.com",
+    "password": "w111222"
+}]

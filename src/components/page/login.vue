@@ -9,14 +9,14 @@
                         type="text" 
                         v-model="ruleForm2.username" 
                         auto-complete="off"
-                        icon="circle-check"
+                        icon="icon iconfont icon-xuanzhong1"
                     ></el-input>
                 </el-form-item>
                 <el-form-item prop="pass">
                     <el-input 
                         type="password" 
                         v-model="ruleForm2.pass"
-                        @keyup.enter="submitForm"
+                        @keyup.enter.native="submitForm"
                         icon="circle-check"
                     ></el-input>
                 </el-form-item>
@@ -53,29 +53,36 @@ export default {
         canvasLogin
     },
     data() {
+        //邮箱正则
+        let emailRex = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
         var validateUserName = (rule, value, callback) => {
             if (value === '') {
                 callback(new Error('请输入用户名'))
+            }else if(!emailRex.test(value)){
+                callback(new Error('请输入正确的邮箱'))
             } else {
                 axios.post('http://localhost:3100/api/loginUserName',{username:value})
                 .then((data)=>{
                     if(data.data.validate){
-                        //this.userRight = true
-                        //console.log(data.data.validate)
 
                         this.ruleForm2.username = value
                     }else{
-                        callback(new Error('用户名不存在'))
+                        callback(new Error('用户名将自动注册'))
                     }
                 })
             }
         };
+        //密码正则
+        let passRex = /^[a-zA-Z]\w{5,17}$/
         var validatePassword = (rule, value, callback) => {
             if (value === '') {
                 callback(new Error('请输入密码'));
+            }else if(!passRex.test(value)){
+                console.log(!passRex.test(value))
+                callback(new Error('密码为字母开头的6-18个字符'))
             }else {
                 axios.post('http://localhost:3100/api/loginPassword',
-                    {username:this.ruleForm2.username,password:value})
+                    {username:this.ruleForm2.username,password:value,check:true})
                 .then((data)=>{
                     if(data.data.validate){
                         this.ruleForm2.pass = value
@@ -85,6 +92,9 @@ export default {
                 })
             }
         };
+        var validatePasswordOninput = (rule, value, callback) => {
+            callback(new Error('sdfsdfsd'));
+        }
         return {
             userRight:false,
             //提示信息
@@ -107,26 +117,21 @@ export default {
     },
     methods: {
         submitForm() {
+             this.error = ''
             this.fullscreenLoading = true;
             axios.post('http://localhost:3100/api/loginPassword',
                 {username:this.ruleForm2.username,password:this.ruleForm2.pass})
             .then((data)=>{
+                console.log(data)
                 this.fullscreenLoading = false;
                 if(data.data.validate){
                     this.$router.push({path:'/home'})
                     this.fullscreenLoading = false;
-                    /*setTimeout(() => {
-                        this.fullscreenLoading = false;
-                        this.$router.push({path:'/home'})
-                    }, 300);*/
                     
                 }else{
                     this.error = '密码错误!'
                 }
             })
-        },
-        openFullScreen() {
-            
         }
     },
     mounted(){

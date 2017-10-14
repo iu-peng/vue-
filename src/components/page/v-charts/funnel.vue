@@ -2,7 +2,7 @@
 	<div class="box">
 		<ve-funnel :data="chartData" :settings="chartSettings"></ve-funnel>
 		<div class="b-box">
-			<el-button type="primary" class="btn" @click="change">改变显示模式</el-button>
+			<el-button :plain="true" type="success" class="btn" @click="change">改变显示模式</el-button>
 		</div>
 	</div>
 </template>

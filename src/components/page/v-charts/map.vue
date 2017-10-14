@@ -2,7 +2,7 @@
 	<div class="box">
 		<ve-map :data="chartData" :settings="chartSettings"></ve-map>
 		<div class="b-box">
-			<el-button type="primary" class="btn" @click="change">切换省份</el-button>
+			<el-button :plain="true" type="success" class="btn" @click="change">切换省份</el-button>
 		</div>
 	</div>
 </template>

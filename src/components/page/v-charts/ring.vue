@@ -2,8 +2,8 @@
 	<div class="box">
 		<ve-ring :data="chartData" :settings="chartSettings"></ve-ring>
 		<div class="b-box">
-			<el-button type="primary" class="btn" @click="change">南丁格尔玫瑰图</el-button>
-			<el-button type="primary" class="btn" @click="change2">控制个数</el-button>
+			<el-button :plain="true" type="success" class="btn" @click="change">南丁格尔玫瑰图</el-button>
+			<el-button :plain="true" type="success" class="btn" @click="change2">控制个数</el-button>
 		</div>
 	</div>
 </template>

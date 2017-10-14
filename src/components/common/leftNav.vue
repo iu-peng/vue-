@@ -20,24 +20,24 @@
 			</el-submenu>
 		</el-submenu>
 		<!-- 总结页面 -->
-		<el-menu-item index="3" :route="{name:'inallpage'}">
-			<i class="iconfont icon-iconset0315"></i>
+		<el-menu-item index="2" :route="{name:'inallpage'}">
+			<i class="iconfont icon-zongji"></i>
 			<span>汇总页</span>
 		</el-menu-item>
 		<!-- pos收银栏 -->
-		<el-menu-item index="2" :route="{name:'pospage'}">
-			<i class="iconfont icon-iconset0315"></i>
+		<el-menu-item index="3" :route="{name:'pospage'}">
+			<i class="iconfont icon-xiadingdan"></i>
 			<span>Pos收银系统</span>
 		</el-menu-item>
 		<!-- 404栏 -->
 		<el-menu-item index="4" :route="{name:'errorpage'}">
-			<i class="iconfont icon-icon-test"></i>
+			<i class="iconfont icon-404"></i>
 			<span>404</span>
 		</el-menu-item>
 		<!-- 图表栏 -->
 		<el-submenu index="5">
 			<template slot="title">
-				<i class="el-icon-menu"></i>
+				<i class="iconfont icon-tubiao"></i>
 				<span>v-charts图表</span>
 			</template>
 			<el-menu-item-group class="son-menu">
@@ -66,11 +66,11 @@
 					<span>漏斗图</span>
 				</el-menu-item>
 				<el-menu-item index="5-7" :route="{name:'v-radarpage'}">
-					<i class="iconfont icon-loudoutu"></i>
+					<i class="iconfont icon-leida"></i>
 					<span>雷达图</span>
 				</el-menu-item>
 				<el-menu-item index="5-8" :route="{name:'v-mappage'}">
-					<i class="iconfont icon-loudoutu"></i>
+					<i class="iconfont icon-c22_hide"></i>
 					<span>地图</span>
 				</el-menu-item>
 			</el-menu-item-group>
@@ -80,11 +80,11 @@
 			<span>markdown</span>
 		</el-menu-item>
 		<el-menu-item index="7" :route="{name:'ueditorpage'}">
-			<i class="el-icon-setting"></i>
+			<i class="iconfont icon-pcfuwenben"></i>
 			<span>富文本编辑</span>
 		</el-menu-item>
 		<el-menu-item index="8" :route="{name:'errorpage'}">
-			<i class="el-icon-setting"></i>
+			<i class="iconfont icon-404"></i>
 			<span>404</span>
 		</el-menu-item>
 	</el-menu>

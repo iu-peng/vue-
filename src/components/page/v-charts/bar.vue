@@ -2,9 +2,9 @@
 	<div class="box">
 		 <ve-bar :data="chartData" :settings="chartSettings"></ve-bar>
 		<div class="b-box">
-			<el-button type="primary" class="btn" @click="change">是否显示值</el-button>
-			<el-button type="primary" class="btn" @click="change2">是否合并</el-button>
-			<el-button type="primary" class="btn" @click="change3">占比排序</el-button>
+			<el-button :plain="true" type="success" class="btn" @click="change">是否显示值</el-button>
+			<el-button :plain="true" type="success" class="btn" @click="change2">是否合并</el-button>
+			<el-button :plain="true" type="success" class="btn" @click="change3">占比排序</el-button>
 		</div>
 	</div>
 </template>

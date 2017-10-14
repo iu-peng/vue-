@@ -274,7 +274,7 @@ app.post('/api/loginUserName', (req, res) => {
 
 //用户密码验证
 app.post('/api/loginPassword', (req, res) => {
-  let {username,password} = req.body
+  let {username,password,check} = req.body
   let isExist = fs.existsSync('./data/userList.json')
   let arr = []
   if(isExist){
@@ -289,8 +289,13 @@ app.post('/api/loginPassword', (req, res) => {
   let findData = arr.find((item) => {
     return item.username === username
   })
+  /*1. 如果用户名存在
+      密码相等
+      密码不等
+    2. 用户名不存在
+      1. 针对密码框失去焦点的请求
+      2. 针对点击登陆的请求*/
 
-  //如果用户名存在
   if(findData){
     //用户名和密码匹配
     if(findData.password === password){
@@ -307,20 +312,29 @@ app.post('/api/loginPassword', (req, res) => {
         validate:false
       })
     }
+    //用户名不存在自动注册
   }else {
-    res.send({
-      code: 1,
-      mesText: '用户名不存在',
-      validate:false
-    })
+    //判断密码框失去焦点时判断密码错误
+    if(check){
+      res.send({
+        code: 1,
+        mesText: '密码错误',
+        validate:true
+      })
+    }else{
+      arr.push({
+        "username":username,
+        "password":password
+      })
+
+      fs.writeFileSync('./data/userList.json', JSON.stringify(arr))
+      res.send({
+        code: 0,
+        mesText: '用户自动注册',
+        validate:true
+      })
+    }
   }
-  /*fs.writeFileSync('./data/userList.json', JSON.stringify(arr))
-  res.send({
-    code: 0,
-    order_list: arr
-  })*/
-
-
 })
 /*app.get('/item', (req, res) => {
   let {id} = req.query;

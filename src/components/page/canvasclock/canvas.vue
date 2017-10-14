@@ -1,5 +1,5 @@
 <template>
-		<canvas width="280" height="30"></canvas>
+		<canvas width="270" height="30"></canvas>
 </template>
 
 <script>
