@@ -1,3 +1,5 @@
+var url = require("url");
+var http = require("https");
 const express = require('express');
 const proxy = require('http-proxy-middleware');//引入代理中间件
 const app = express();
@@ -336,6 +338,64 @@ app.post('/api/loginPassword', (req, res) => {
     }
   }
 })
+
+
+function getPagesHtml(urls){
+    return new Promise((resolve,reject) => {
+        var urlParse = url.parse(urls);
+
+        let options = {
+          hostname:urlParse.hostname,
+          path:urlParse.path
+        }
+
+        let req = http.request(options,(res)=>{
+          var arr = [];
+          res.on('data', (chunk) => {
+            arr.push(chunk);
+          });
+          res.on('end', () => {
+            resolve(arr);
+          });
+
+          res.on("error",(err)=>{
+            reject(err)
+          });
+
+         });
+
+        req.on("error", (err)=>{
+          reject(err)
+        })
+
+        req.end();
+    });
+}
+//请求未来天气
+app.get('/api/weatherNext',function (req,res){
+  getPagesHtml('https://api.seniverse.com/v3/weather/daily.json?key=zaeco6ttnzzrmlkv&location=beijing&language=zh-Hans&unit=c&start=0&days=5')
+  .then(function (data){
+    res.send(data.toString());
+  }) 
+})
+//请求当日天气
+app.get('/api/weatherToday',function (req,res){
+  getPagesHtml('https://api.seniverse.com/v3/weather/now.json?key=zaeco6ttnzzrmlkv&location=beijing&language=zh-Hans&unit=c')
+  .then(function (data){
+    res.send(data.toString());
+  })  
+})
+//查询指定城市未来的天气
+app.get('/api/weatherCity',function (req,res){
+  let cityname = req.query.cityname
+  console.log(cityname)
+  getPagesHtml(`https://api.seniverse.com/v3/weather/daily.json?key=zaeco6ttnzzrmlkv&location=${cityname}&language=zh-Hans&unit=c&start=0&days=5`)
+  .then(function (data){
+    
+    res.send(data.toString());
+  })  
+})
+
 /*app.get('/item', (req, res) => {
   let {id} = req.query;
 

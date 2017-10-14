@@ -35,6 +35,10 @@ import Vmap from '@/components/page/v-charts/map'
 import Markdown from '@/components/page/markdown/markdown'
 //富文本编辑ueditor
 import Ueditor from '@/components/page/ueditor/ueditor'
+//当天天气预报
+import Weather from '@/components/page/weather/weather'
+//未来天气预报
+import WeatherNext from '@/components/page/weather/nextweather'
 
 
 let router = new Router({
@@ -114,6 +118,16 @@ let router = new Router({
 	      		path:'ueditor',
 	      		components:{head:headerNav,left:leftNav,default:Ueditor},
 	      		name:'ueditorpage'
+	      	},
+	      	{
+	      		path:'weather',
+	      		components:{head:headerNav,left:leftNav,default:Weather},
+	      		name:'weatherpage'
+	      	},
+	      	{
+	      		path:'WeatherNext',
+	      		components:{head:headerNav,left:leftNav,default:WeatherNext},
+	      		name:'Weathernextpage'
 	      	}
       	]
     }

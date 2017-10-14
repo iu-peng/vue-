@@ -83,9 +83,9 @@
 			<i class="iconfont icon-pcfuwenben"></i>
 			<span>富文本编辑</span>
 		</el-menu-item>
-		<el-menu-item index="8" :route="{name:'errorpage'}">
-			<i class="iconfont icon-404"></i>
-			<span>404</span>
+		<el-menu-item index="8" :route="{name:'weatherpage'}">
+			<i class="iconfont icon-pcfuwenben"></i>
+			<span>天气预报</span>
 		</el-menu-item>
 	</el-menu>
 </template>

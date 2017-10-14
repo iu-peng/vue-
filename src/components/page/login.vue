@@ -1,6 +1,6 @@
 <template>
     <div id="login">
-        <!-- <canvas-login></canvas-login> -->
+        <canvas-login></canvas-login>
         <div class="login-box">
             <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" class="demo-ruleForm">
                 <h2 class="bt">用户登录</h2>
@@ -38,7 +38,7 @@
 
 <script>
 import axios from 'axios'
-import canvasLogin from '@/components/page/canvaslogin/canvaslogin'
+import canvasLogin from '@/components/page/canvaslogin/canvaslogin2'
 
 //元素居中方法
 function _center(dom){
@@ -117,7 +117,7 @@ export default {
     },
     methods: {
         submitForm() {
-             this.error = ''
+            this.error = ''
             this.fullscreenLoading = true;
             axios.post('http://localhost:3100/api/loginPassword',
                 {username:this.ruleForm2.username,password:this.ruleForm2.pass})
