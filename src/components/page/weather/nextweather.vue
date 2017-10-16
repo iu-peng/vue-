@@ -6,7 +6,7 @@
                 <div class="next-message">
                     <!-- 地点 -->
                     <p class="place">
-                        <i class="icon iconfont icon-didian1"></i>
+                        <i class="icon iconfont icon-shouye"></i>
                         {{futureWeatherLocation.name}}
                     </p>
                     <!-- 白天天气 -->
@@ -39,9 +39,14 @@
                 </div>
             </el-col>
         </el-row>
-        <el-row type="flex" justify="space-around">
+        <ve-line 
+            class="line-cavas"
+            :data="chartData" 
+            :toolbox="toolbox" 
+            :settings="chartSettings"
+        ></ve-line>
+        <el-row type="flex" justify="space-around" style="margin:0 0 30px;">
             <el-col :span="10">
-
                 <el-input placeholder="请输入地址" @keyup.enter.native="searchCity" v-model="inputValue">
                     <template slot="prepend">请输入拼音地址</template>
                     <el-button @click="searchCity" slot="append" icon="search"></el-button>
@@ -60,31 +65,50 @@
                 futureWeatherData:[],//循环数组
                 futureWeatherLocation:{},//地区
                 inputValue:'', //输入框数据
-                weatherImg:[]
+                weatherImg:[],//天气图片集合
+                errorInput:'',
+                tempData:[
+                    { '日期': '今天', '最高温': 0, '最低温': 0},
+                    { '日期': '明天', '最高温': 0, '最低温': 0},
+                    { '日期': '后天', '最高温': 0, '最低温': 0}
+                ],
+                fn:function(data){
+                    if(!data.data.results){
+                        this.inputValue = '地名未识别'
+                        return
+                    }
+                    this.weatherData = data.data.results[0]
+                    this.futureWeatherLocation = this.weatherData.location //地区对象
+                    this.futureWeatherData = this.weatherData.daily.filter((item,index)=>{
+                        if(index === 0) item.date = '今  天'
+                        if(index === 1) item.date = '明  天'
+                        if(index === 2) item.date = '后  天'
+                        return index>=0
+                    })
+                    //温度曲线
+                    this.futureWeatherData.forEach((item,index)=>{
+                        this.chartData.rows[index]['最高温'] = item.high
+                        this.chartData.rows[index]['最低温'] = item.low
+                    })
+                    //图片地址数组
+                    this.weatherData.daily.forEach((item,index)=>{
+                        this.weatherImg[index] = require('../../../assets/img/img/'+item.code_day+'.png')
+                    })
+                }
             }
         },
         mounted(){
             axios.get('http://localhost:3100/api/weatherNext')
             .then((data)=>{
-                
-                this.weatherData = data.data.results[0]
-                this.futureWeatherLocation = this.weatherData.location //地区对象
-                this.futureWeatherData = this.weatherData.daily.filter((item,index)=>{
-                    if(index === 0) item.date = '今  天'
-                    if(index === 1) item.date = '明  天'
-                    if(index === 2) item.date = '后  天'
-                    return index>=0
-                })
-                //图片地址数组
-                this.weatherData.daily.forEach((item,index)=>{
-                    this.weatherImg[index] = require('../../../assets/img/img/'+item.code_day+'.png')
-                })
-                
+                this.fn(data)                
             })
         },
         computed:{
             imgSrc(code){
                 return require('../../../assets/img/img/'+10+'.png')
+            },
+            tempDataAfter(){
+                return this.tempData
             }
         },
         methods:{
@@ -106,25 +130,47 @@
                     }
                 })
                 .then((data)=>{
-                    this.weatherData = data.data.results[0]
-                    this.futureWeatherLocation = this.weatherData.location //地区对象
-                    this.futureWeatherData = this.weatherData.daily.filter((item,index)=>{
-                        if(index === 0) item.date = '今  天'
-                        if(index === 1) item.date = '明  天'
-                        if(index === 2) item.date = '后  天'
-                        return index>=0
-                    })
-                    //图片地址数组
-                    this.weatherData.daily.forEach((item,index)=>{
-                        this.weatherImg[index] = require('../../../assets/img/img/'+item.code_day+'.png')
-                    })
+                    this.fn(data)
                 })
-                .catch((e)=>{
-                    console.log(e)
-                })
+                //.catch((e)=>{
+                    /*this.$message({
+                        showClose: true,
+                        message: e,
+                        type: 'warning'
+                    });*/
+                //})
             },
             checkValue(){
 
+            }
+        },
+        created() {
+            this.chartData = {
+                columns: ['日期', '最高温', '最低温'],
+                rows:this.tempDataAfter
+            }
+            this.chartSettings = {
+                metrics: ['最高温', '最低温'],
+                dimension: ['日期'],
+                yAxisName: ['℃'],
+                area: false,
+                label: {
+                    normal: {
+                        show: true
+                    }
+                }/*,
+                lineStyle:{
+                    normal:{
+                        color:'red'
+                    }
+                }*/
+            }
+            //图形转换
+            this.toolbox = {
+                feature: {
+                    magicType: {type: ['line', 'bar']},
+                    saveAsImage: {}
+                }
             }
         }
     }
@@ -279,5 +325,9 @@
     100%{
         transform:rotate(-360deg);
     }
+}
+.line-cavas{
+    margin:0 10%;
+    background:red;
 }
 </style>

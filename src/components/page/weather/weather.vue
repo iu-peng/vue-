@@ -85,6 +85,8 @@
     background: linear-gradient(#f87461,#faeeb5);
     border-radius:10px;
     overflow:hidden;
+    box-shadow:0 5px 25px #ccc,2px 5px 13px #cca;
+    margin-bottom:30px;
 }
 
 .wearth-text{
@@ -128,5 +130,28 @@
 }
 span.next-temp{
     float:right;
+}
+.weather-img{
+    animation: imgmove 5s linear 2s infinite normal;
+}
+@keyframes imgmove {
+    0%{
+        transform: matrix(1,0,0,1, 0,0);
+    }
+    20%{
+        transform: matrix(1,0,0,1, 5,-5);
+    }
+    40%{
+        transform: matrix(1.1,0,0,1.1, 5,5);
+    }
+    60%{
+        transform: matrix(1.1,0,0,1.1, -5,5);
+    }
+    80%{
+        transform: matrix(1,0,0,1, -5,-5);
+    }
+    100%{
+        transform: matrix(1,0,0,1, 0,0);
+    }
 }
 </style>

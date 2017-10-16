@@ -56,6 +56,20 @@ app.get('/api/goodskind', (req, res) => {
   }
 })*/
 
+//天气数据
+let weather = {};
+fs.readFile('./data/weather.json', (error, data) => {
+  weather = {
+    list: JSON.parse(data.toString())
+  }
+})
+//请求数据
+app.get('/api/weather', (req, res) => {
+  // 暂时先已读取的形式
+  res.send(weather)
+})
+
+
 app.post('/api/setShopCarList', (req, res) => {
   let {carList} = req.body
   let isExist = fs.existsSync('./data/carList.json')
@@ -211,7 +225,7 @@ app.get('/api/getOrderList', (req, res) => {
     }
   })
 }) */
-
+//删除一个
 app.post('/api/delOne', (req, res) => {
   let {delId} = req.body;
   console.log(delId)

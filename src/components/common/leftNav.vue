@@ -22,32 +22,32 @@
 		<!-- 总结页面 -->
 		<el-menu-item index="2" :route="{name:'inallpage'}">
 			<i class="iconfont icon-zongji"></i>
-			<span>汇总页</span>
+			<span slot="title">汇总页</span>
 		</el-menu-item>
 		<!-- pos收银栏 -->
 		<el-menu-item index="3" :route="{name:'pospage'}">
 			<i class="iconfont icon-xiadingdan"></i>
-			<span>Pos收银系统</span>
+			<span  slot="title">Pos收银系统</span>
 		</el-menu-item>
 		<!-- 404栏 -->
 		<el-menu-item index="4" :route="{name:'errorpage'}">
 			<i class="iconfont icon-404"></i>
-			<span>404</span>
+			<span slot="title">404</span>
 		</el-menu-item>
 		<!-- 图表栏 -->
 		<el-submenu index="5">
 			<template slot="title">
 				<i class="iconfont icon-tubiao"></i>
-				<span>v-charts图表</span>
+				<span slot="title">v-charts图表</span>
 			</template>
 			<el-menu-item-group class="son-menu">
 				<el-menu-item index="5-1" :route="{name:'v-linepage'}">
 					<i class="iconfont icon-zhexian"></i>
-					<span>折线图</span>
+					<span slot="title">折线图</span>
 				</el-menu-item>
 				<el-menu-item index="5-2" :route="{name:'v-columnpage'}">
 					<i class="iconfont icon-zhuzhuangtu"></i>
-					<span>柱状图</span>
+					<span slot="title">柱状图</span>
 				</el-menu-item>
 				<el-menu-item index="5-3" :route="{name:'v-barpage'}">
 					<i class="iconfont icon-bar-chart-h"></i>
@@ -77,15 +77,19 @@
 		</el-submenu>
 		<el-menu-item index="5" :route="{name:'v-markdownpage'}">
 			<i class="iconfont icon-markdown"></i>
-			<span>markdown</span>
+			<span slot="title">markdown</span>
 		</el-menu-item>
 		<el-menu-item index="7" :route="{name:'ueditorpage'}">
 			<i class="iconfont icon-pcfuwenben"></i>
-			<span>富文本编辑</span>
+			<span slot="title">富文本编辑</span>
 		</el-menu-item>
 		<el-menu-item index="8" :route="{name:'weatherpage'}">
-			<i class="iconfont icon-pcfuwenben"></i>
-			<span>天气预报</span>
+			<i class="iconfont icon-tianqiyubao"></i>
+			<span slot="title">天气预报</span>
+		</el-menu-item>
+		<el-menu-item index="9" :route="{name:'WeatherDetailspage'}">
+			<i class="iconfont icon-tianqiyubao"></i>
+			<span slot="title">24天气预报</span>
 		</el-menu-item>
 	</el-menu>
 </template>

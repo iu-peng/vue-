@@ -39,6 +39,8 @@ import Ueditor from '@/components/page/ueditor/ueditor'
 import Weather from '@/components/page/weather/weather'
 //未来天气预报
 import WeatherNext from '@/components/page/weather/nextweather'
+//24小时天气
+import WeatherDetails from '@/components/page/weatherdetails/weath-details'
 
 
 let router = new Router({
@@ -128,6 +130,11 @@ let router = new Router({
 	      		path:'WeatherNext',
 	      		components:{head:headerNav,left:leftNav,default:WeatherNext},
 	      		name:'Weathernextpage'
+	      	},
+	      	{
+	      		path:'weatherDetails',
+	      		components:{head:headerNav,left:leftNav,default:WeatherDetails},
+	      		name:'WeatherDetailspage'
 	      	}
       	]
     }
