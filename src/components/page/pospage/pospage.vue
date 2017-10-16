@@ -26,9 +26,9 @@
                 ></el-table-column>
                 <el-table-column label="操作" align="center"  min-width="220" prop="goodsId">
                   <template scope="props">
-                    <el-button type="warning" size="small" @click="delOne(props.row.goodsId)">删除</el-button>
-                    <el-button type="success" size="small" @click="reduceOne(props.row.goodsId)">减少</el-button>
-                    <el-button type="success" size="small" @click="addOne(props.row.goodsId)">增加</el-button>
+                    <el-button type="warning" size="small" @click="delOne(props.row.goodsId)">X</el-button>
+                    <el-button type="success" size="small" @click="reduceOne(props.row.goodsId)">--</el-button>
+                    <el-button type="success" size="small" @click="addOne(props.row.goodsId)">+</el-button>
                   </template>
                 </el-table-column>
               </el-table>
@@ -203,7 +203,6 @@ export default {
       this.checkedList.forEach((item)=>{
         n += item.count*item.price
       })
-      this.$emit('inallprice',n)
       return n
     }
   }

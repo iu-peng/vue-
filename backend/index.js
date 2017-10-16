@@ -56,19 +56,6 @@ app.get('/api/goodskind', (req, res) => {
   }
 })*/
 
-//天气数据
-let weather = {};
-fs.readFile('./data/weather.json', (error, data) => {
-  weather = {
-    list: JSON.parse(data.toString())
-  }
-})
-//请求数据
-app.get('/api/weather', (req, res) => {
-  // 暂时先已读取的形式
-  res.send(weather)
-})
-
 
 app.post('/api/setShopCarList', (req, res) => {
   let {carList} = req.body
@@ -409,6 +396,15 @@ app.get('/api/weatherCity',function (req,res){
     res.send(data.toString());
   })  
 })
+
+//请求24小时时段天气
+app.get('/api/24hours',function (req,res){
+  getPagesHtml('https://weatherapi.market.xiaomi.com/wtr-v3/weather/all?latitude=110&longitude=112&locationKey=weathercn%3A101010100&days=15&appKey=weather20151024&sign=zUFJoAR2ZVrDy1vF3D07&isGlobal=false&locale=zh_cn')
+  .then(function (data){
+    res.send(data.toString());
+  }) 
+})
+//https://weatherapi.market.xiaomi.com/wtr-v3/weather/all?latitude=110&longitude=112&locationKey=weathercn%3A101010100&days=15&appKey=weather20151024&sign=zUFJoAR2ZVrDy1vF3D07&isGlobal=false&locale=zh_cn
 
 /*app.get('/item', (req, res) => {
   let {id} = req.query;

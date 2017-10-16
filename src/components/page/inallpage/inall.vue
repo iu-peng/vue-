@@ -2,25 +2,106 @@
 	<div id="inall">
 		<el-row :gutter="20">
 			<el-col :span="6" v-for="item,index in countNum" key="index">
-				<div class="tip">
-					<p class="tip-kind">
-						{{item.name}}
-					</p>
-					<div class="tip-detail">
-						<p class="detail-each">
-							<b>共计</b>
-							<span>{{item.countAll}}份</span>
+				<div class="kind-item">
+				<!-- 总计 -->
+					<div class="tip">
+						<p class="tip-kind">
+							{{item.name}}
 						</p>
-						<p class="detail-inall">
-							<b>总价</b>
-							<span>{{item.priceAll}}元</span>
-						</p>
+						<div class="tip-detail">
+							<p class="detail-each">
+								<b>共计</b>
+								<span>{{item.countAll}}份</span>
+							</p>
+							<p class="detail-inall">
+								<b>总价</b>
+								<span>{{item.priceAll}}元</span>
+							</p>
+						</div>
 					</div>
+					<!-- 商品价格占比 -->
+					<div class="percent">
+						<el-progress 
+							:text-inside="true" 
+							:stroke-width="18" 
+							status="success"
+							:percentage="Math.round(rows[index]['价格比例']*100)||0"
+							class="progress"
+						></el-progress>
+					</div>
+					<!-- 商品罗列 -->
+					<el-card class="box-card" body-style="padding:0px 0px;">
+					    <div slot="header" class="clearfix">
+					        <span>商品分类</span>
+					        <el-button 
+					            style="float: right; padding:3px 10px;" 
+					            plain
+					            @click="item.colle=!item.colle"
+					        >{{item.colle?'-':'+'}}</el-button>
+					    </div>
+					    <el-collapse-transition>
+					        <div v-show="item.colle">
+					            <div v-for="each,nth in item.options" key="nth" class="goods-type">
+					            	<img 
+					            		:src="each.goodsImg" 
+					            		class="goods-type-img" 
+					            	/>
+					            	<p class="goods-type-name">{{each.goodsName}}</p>
+					            	<!-- <el-input-number 
+					            		size="small" 
+					            		v-model="each.count"
+					            	></el-input-number> -->
+					            	<p class="goods-type-num">x{{each.count}}</p>
+					            	<p class="goods-type-num">¥{{(each.count)*(each.price)}}</p>
+					            	<div class="goods-type-del">
+					            		<div @click="delOne(each.goodsId)">删除</div>
+					            		<div @click="reduceOne(each.goodsId)">-</div>
+					            		<div @click="addOne(each.goodsId)">+</div>
+					            		<!-- <el-button 
+					            			plain 
+					            			type="success" 
+					            			size="small"
+					            			@click="delOne(each.goodsId)"
+					            		>删除</el-button> -->
+					            	</div>
+					            </div>
+					        </div>
+					    </el-collapse-transition>
+					</el-card>
 				</div>
+				
 			</el-col>
 		</el-row>
 		<el-row class="charts">
-			<ve-histogram :data="chartData" :settings="chartSettings"></ve-histogram>
+			<el-row :gutter="20">
+				<el-col :span="14" class="charts-left">
+					<ve-histogram :data="chartData" :settings="chartSettings"></ve-histogram>
+				</el-col>
+				<el-col :span="8">
+					<div>
+						<el-card class="" body-style="padding:0px 0px;">
+						    <div slot="header" class="clearfix">
+						        <span>商品分类</span>
+						        <el-button 
+						            style="float: right; padding:3px 10px;" 
+						            plain
+						            @click=""
+						        >-</el-button>
+						    </div>
+						    <el-collapse-transition>
+						        <div v-show="true">
+						            <div>
+						            	<el-steps :space="50" direction="vertical" :active="1">
+						            	  <el-step v-for="item in 6"  :title="'商品'+item"></el-step>
+						            	</el-steps>
+						            </div>
+						        </div>
+						    </el-collapse-transition>
+						</el-card>
+					</div>
+				</el-col>
+			</el-row>
+			
 		</el-row>
 	</div>
 </template>
@@ -29,24 +110,44 @@
 	import axios from 'axios'
 	
 	export default {
-		props:['priceAll'],
 		data(){
 			return {
+				priceAllMoney:0,
 				chartData:{},
 				chartSettings:{},
+
 				kindsArr:[],
 				kindsDetailsArr:[
-					{name:'汉堡',countAll:0,priceAll:0},
-					{name:'特色小吃',countAll:0,priceAll:0},
-					{name:'饮料',countAll:0,priceAll:0},
-					{name:'套餐',countAll:0,priceAll:0}
+					{name:'汉堡',countAll:0,priceAll:0,colle:true},
+					{name:'特色小吃',countAll:0,priceAll:0,colle:true},
+					{name:'饮料',countAll:0,priceAll:0,colle:true},
+					{name:'套餐',countAll:0,priceAll:0,colle:true}
 				],
 				rows:[
 					{ '种类': '汉堡', '总数量': 0, '总价': 0, '占比': 0, '价格比例': 1 },
 					{ '种类': '特色小吃', '总数量': 0, '总价': 0, '占比':0, '价格比例': 1 },
 					{ '种类': '饮料', '总数量': 0, '总价': 0, '占比': 0, '价格比例': 1 },
 					{ '种类': '套餐', '总数量': 0, '总价': 0, '占比': 0, '价格比例': 1 }
-				]
+				],
+				getList:function(data){
+					let arr = data.data.order_list
+					function filterArr(pid){
+						return arr.filter((item)=>{
+							return item.kindsId === pid
+						})
+					}
+					this.kindsArr = []
+					for(let i = 1; i<5; i++){
+						this.kindsArr.push(filterArr(i))
+					}
+					//计算总价格
+					this.priceAllMoney = 0
+					this.kindsArr.forEach((item)=>{
+						item.forEach((it)=>{
+							this.priceAllMoney += it.price * it.count
+						})
+					})
+				}
 			}
 		},
 		created() {
@@ -69,16 +170,7 @@
 		mounted(){
 			axios.get('http://localhost:3100/api/getOrderList')
 			.then((data)=>{
-				//每种商品的数组
-				let arr = data.data.order_list
-				function filterArr(pid){
-					return arr.filter((item)=>{
-						return item.kindsId === pid
-					})
-				}
-				for(let i = 1; i<5; i++){
-					this.kindsArr.push(filterArr(i))
-				}
+				this.getList(data)
 			})
 		},
 		computed:{
@@ -90,6 +182,11 @@
 						c += it.count
 						p += it.price*it.count
 					})
+					//每种类下的具体商品
+					this.kindsDetailsArr[index].options = []
+					this.kindsDetailsArr[index].options = item
+					
+					//this.kindsDetailsArr[index].colle = true
 					//总数量
 					this.kindsDetailsArr[index].countAll = c
 					this.rows[index]['总数量'] = c
@@ -97,9 +194,55 @@
 					this.kindsDetailsArr[index].priceAll = p
 					this.rows[index]['总价'] = p
 					//toFixed 保留两位小数
-					this.rows[index]['价格比例'] = (p/this.priceAll).toFixed(2)
+					this.rows[index]['价格比例'] = (p/this.priceAllMoney).toFixed(2)
 				})
+				console.log(this.kindsDetailsArr)
 				return this.kindsDetailsArr
+			}
+		},
+		methods:{
+			delOne(goodsId){
+				axios.post('http://localhost:3100/api/delOne',{delId:goodsId})
+				.then((data)=>{
+					if(data.data.code === 1){
+						//this.open()
+						console.log('已满5件')
+					}
+					this.getList(data)
+
+					//this.countNum()
+				})
+			},
+			addOne(goodsId){
+				axios.post('http://localhost:3100/api/addOne',{goodsId:goodsId})
+				.then((data)=>{
+					//购物车满 提示警告
+					if(data.data.code === 1){
+						this.open()
+					}
+					this.getList(data)
+				})
+			},
+			reduceOne(goodsId){
+				axios.post('http://localhost:3100/api/reduceOne',{reduceId:goodsId})
+				.then((data)=>{
+					if(data.data.code === 1){
+						this.open2()
+					}
+					this.getList(data)
+				})
+			},
+			open(){
+				this.$message({
+					message:'本商品购物车已满5件！请先结算',
+					type:'warning'
+				})
+			},
+			open2(){
+				this.$message({
+					message:'最少为1件，可删除',
+					type:'warning'
+				})
 			}
 		}
 	}
@@ -108,8 +251,11 @@
 #inall{
 	padding:20px 20px 0;
 }
-.el-col{
+.kind-item{
 	cursor:pointer;
+	-background:#ffafac;
+	padding:5px;
+	border-radius:10px;
 }
 .tip{
 	border-radius:5px;
@@ -164,6 +310,80 @@
 }
 .charts{
 	background:;
-	margin:30px 80px 0;
+	margin:30px 0px 0;
+}
+.percent{
+	margin-top:10px;
+	padding:20px 5px;
+	background:#ccc;
+	border-radius:5px;
+}
+.box-card{
+	margin-top:10px;
+}
+.goods-type{
+	height:40px;
+	display:flex;
+	align-items:center;
+	justify-content:space-between;
+	border-bottom:1px dotted #ccc;
+	position:relative;
+	overflow:hidden;
+}
+.goods-type:last-child{
+	border-bottom:none;
+}
+.goods-type-img{
+	width:30px;
+	height:30px;
+	border-radius:50%;
+	margin:0 0 0 15px;
+}
+.goods-type-img:nth-child(1),.goods-type-img:nth-child(2){
+	float:left;
+}
+.goods-type-name{
+	margin:0 20px 0 20px;
+	font-size:14px;
+}
+.goods-type-num{
+	padding-right:10px;
+}
+.goods-type-del{
+	position:absolute;
+	flex:none;
+	background:rgba(0,0,0,0.2);
+	width:100%;
+	height:100%;
+	transform:translateY(-100%);
+	transition:.3s;
+}
+.goods-type-del div{
+	background:rgba(255,255,255,0.9);
+	float:right;
+	height:100%;
+	line-height:40px;
+	width:25%;
+	text-align:center;
+}
+.goods-type-del div:hover{
+	background:rgba(55,55,55,1);
+	color:#fff;
+}
+.goods-type:hover .goods-type-del{
+	transform:translateY(0%);
+}
+.goods-type-del .el-button{
+	position:absolute;
+	right:2%;
+	top:16%;
+	
+}
+.charts-left{
+	padding:20px 0;
+	height:400px;
+	background:#fff;
+	box-shadow:0 2px 5px #ccc;
+	border-radius:10px;
 }
 </style>

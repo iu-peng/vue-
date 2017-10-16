@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from '@/router'
+import store from '@/store'
 //引入饿了么组件
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
@@ -25,6 +26,7 @@ Vue.use(VCharts)
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App }
 })
