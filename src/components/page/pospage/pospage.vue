@@ -26,7 +26,7 @@
                 ></el-table-column>
                 <el-table-column label="操作" align="center"  min-width="220" prop="goodsId">
                   <template scope="props">
-                    <el-button type="warning" size="small" @click="delOne(props.row.goodsId)">X</el-button>
+                    <el-button type="warning" size="small" @click="openDel(props.row.goodsId)">X</el-button>
                     <el-button type="success" size="small" @click="reduceOne(props.row.goodsId)">--</el-button>
                     <el-button type="success" size="small" @click="addOne(props.row.goodsId)">+</el-button>
                   </template>
@@ -188,6 +188,26 @@ export default {
         message:'最少为1件，可删除',
         type:'warning'
       })
+    },
+    openDel(goodsId) {
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+      .then(() => {
+        this.delOne(goodsId)
+        this.$message({
+          type: 'success',
+          message: '删除成功!'
+        })
+      })
+      .catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })         
+      })
     }
   },
   computed:{
@@ -302,6 +322,7 @@ export default {
   height:100px;
   display: block;
   margin:50px auto 0;
+  border-radius:10%;
 }
 .offten-kind p{
   position:absolute;

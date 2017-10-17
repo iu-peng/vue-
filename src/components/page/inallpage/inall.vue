@@ -32,7 +32,7 @@
 					<!-- 商品罗列 -->
 					<el-card class="box-card" body-style="padding:0px 0px;">
 					    <div slot="header" class="clearfix">
-					        <span>商品分类</span>
+					        <span>分类详情</span>
 					        <el-button 
 					            style="float: right; padding:3px 10px;" 
 					            plain
@@ -54,15 +54,9 @@
 					            	<p class="goods-type-num">x{{each.count}}</p>
 					            	<p class="goods-type-num">¥{{(each.count)*(each.price)}}</p>
 					            	<div class="goods-type-del">
-					            		<div @click="delOne(each.goodsId)">删除</div>
+					            		<div @click="openDel(each.goodsId)">删除</div>
 					            		<div @click="reduceOne(each.goodsId)">-</div>
 					            		<div @click="addOne(each.goodsId)">+</div>
-					            		<!-- <el-button 
-					            			plain 
-					            			type="success" 
-					            			size="small"
-					            			@click="delOne(each.goodsId)"
-					            		>删除</el-button> -->
 					            	</div>
 					            </div>
 					        </div>
@@ -73,14 +67,14 @@
 			</el-col>
 		</el-row>
 		<el-row class="charts">
-			<el-row :gutter="20">
+			<el-row :gutter="20" type="flex" justify="space-around">
 				<el-col :span="14" class="charts-left">
 					<ve-histogram :data="chartData" :settings="chartSettings"></ve-histogram>
 				</el-col>
 				<el-col :span="8">
 					<div>
 						<el-card class="" body-style="padding:0px 0px;">
-						    <div slot="header" class="clearfix">
+						    <div slot="header" class="clearfix" style="border-bottom:none;">
 						        <span>商品分类</span>
 						        <el-button 
 						            style="float: right; padding:3px 10px;" 
@@ -89,19 +83,37 @@
 						        >-</el-button>
 						    </div>
 						    <el-collapse-transition>
-						        <div v-show="true">
-						            <div>
-						            	<el-steps :space="50" direction="vertical" :active="1">
-						            	  <el-step v-for="item in 6"  :title="'商品'+item"></el-step>
-						            	</el-steps>
-						            </div>
+						        <div v-show="true" class="settle">
+					            	<el-row>
+										<el-col :span="12">
+											<p class="total"><b>x </b>{{countAllNum}}</p>
+											<span class="total-tip">商品数</span>
+										</el-col>
+										<el-col :span="12">
+											<p class="total"><b>¥ </b>{{priceAllMoney}}</p>
+											<span class="total-tip">总价</span>
+										</el-col>
+					            	</el-row>
+					            	<el-row>
+										<el-col :span="12">
+											<el-button 
+												class="overbtn" 
+												type="danger"
+											>继续购物</el-button>
+										</el-col>
+										<el-col :span="12">
+											<el-button 
+												class="overbtn" 
+												type="danger"
+											>马上结算</el-button>
+										</el-col>
+					            	</el-row>
 						        </div>
 						    </el-collapse-transition>
 						</el-card>
 					</div>
 				</el-col>
 			</el-row>
-			
 		</el-row>
 	</div>
 </template>
@@ -113,6 +125,7 @@
 		data(){
 			return {
 				priceAllMoney:0,
+				countAllNum:0,
 				chartData:{},
 				chartSettings:{},
 
@@ -145,6 +158,13 @@
 					this.kindsArr.forEach((item)=>{
 						item.forEach((it)=>{
 							this.priceAllMoney += it.price * it.count
+						})
+					})
+					//计算总数量
+					this.countAllNum = 0
+					this.kindsArr.forEach((item)=>{
+						item.forEach((it)=>{
+							this.countAllNum += it.count
 						})
 					})
 				}
@@ -196,7 +216,6 @@
 					//toFixed 保留两位小数
 					this.rows[index]['价格比例'] = (p/this.priceAllMoney).toFixed(2)
 				})
-				console.log(this.kindsDetailsArr)
 				return this.kindsDetailsArr
 			}
 		},
@@ -242,6 +261,26 @@
 				this.$message({
 					message:'最少为1件，可删除',
 					type:'warning'
+				})
+			},
+			openDel(goodsId) {
+				this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					type: 'warning'
+				})
+				.then(() => {
+					this.delOne(goodsId)
+					this.$message({
+						type: 'success',
+						message: '删除成功!'
+					})
+				})
+				.catch(() => {
+					this.$message({
+						type: 'info',
+						message: '已取消删除'
+					})         
 				})
 			}
 		}
@@ -326,6 +365,8 @@
 	display:flex;
 	align-items:center;
 	justify-content:space-between;
+	-flex-wrap:nowrap;
+	-flex-direction:row;
 	border-bottom:1px dotted #ccc;
 	position:relative;
 	overflow:hidden;
@@ -345,11 +386,14 @@
 .goods-type-name{
 	margin:0 20px 0 20px;
 	font-size:14px;
+	-text-overflow:ellipsis;
+	-white-space: nowrap;
+
 }
 .goods-type-num{
 	padding-right:10px;
 }
-.goods-type-del{
+.goods-type-del,.del-ev{
 	position:absolute;
 	flex:none;
 	background:rgba(0,0,0,0.2);
@@ -373,17 +417,44 @@
 .goods-type:hover .goods-type-del{
 	transform:translateY(0%);
 }
-.goods-type-del .el-button{
-	position:absolute;
-	right:2%;
-	top:16%;
-	
-}
 .charts-left{
 	padding:20px 0;
 	height:400px;
 	background:#fff;
 	box-shadow:0 2px 5px #ccc;
 	border-radius:10px;
+}
+.settle{
+	padding:20px;
+}
+.settle .el-row{
+	border-bottom:1px solid #8c92a3;
+}
+.settle .el-col{
+	padding:20px;
+}
+.settle .el-row:first-child .el-col:nth-child(odd){
+	border-right:1px solid #8c92a3;
+}
+.total{
+	font-size:30px;
+	font-weight:bolder;
+	height:50px;
+	color:#222A38;
+	text-align:center;
+	line-height:50px;
+}
+.total b{
+	font-size:19px;
+	color:#8c92a3;
+}
+.total-tip{
+	display:block;
+	color:#8c92a3;
+	text-align:center;
+}
+.overbtn{
+	margin:0 auto;
+	display:block;
 }
 </style>
