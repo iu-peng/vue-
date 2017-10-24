@@ -5,6 +5,8 @@ Vue.use(Router)
 import Home from '@/components/page/home'
 //总结页面
 import Inall from '@/components/page/inallpage/inall'
+//购物车页面
+import Shopcar from '@/components/page/shopcar/shopcar'
 
 import Login from '@/components/page/login'
 //pos页面
@@ -65,6 +67,11 @@ let router = new Router({
 	      		path:'possystem',
 	      		components:{head:headerNav,left:leftNav,default:Pospage},
 	      		name:"pospage"
+	      	},
+      		{
+	      		path:'shopcar',
+	      		components:{head:headerNav,left:leftNav,default:Shopcar},
+	      		name:"shopcar"
 	      	},
 	      	{
 	      		path:'error',

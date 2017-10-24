@@ -57,7 +57,7 @@
 </template>
 
 <script>
-    import axios from 'axios'
+    import api from '../../api/api'
     export default{
         data(){
             return{
@@ -98,7 +98,8 @@
             }
         },
         mounted(){
-            axios.get('http://localhost:3100/api/weatherNext')
+            //axios.get('http://localhost:3100/api/weatherNext')
+            api.noParams('weatherNext')
             .then((data)=>{
                 this.fn(data)                
             })
@@ -124,11 +125,10 @@
                     return
                 }
 
-                axios.get('http://localhost:3100/api/weatherCity',{
-                    params:{
-                        cityname:this.inputValue
-                    }
-                })
+                //axios.get('http://localhost:3100/api/weatherCity',{
+                api.haveParamsGet('weatherCity',
+                    { params:{cityname:this.inputValue} } 
+                )
                 .then((data)=>{
                     this.fn(data)
                 })

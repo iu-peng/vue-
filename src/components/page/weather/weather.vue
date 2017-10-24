@@ -35,7 +35,7 @@
 </template>
 
 <script>
-    import axios from 'axios'
+    import api from '../../api/api'
     export default{
         data(){
             return{
@@ -47,11 +47,13 @@
             }
         },
         mounted(){
-            axios.get('http://localhost:3100/api/weatherToday')
+            //axios.get('http://localhost:3100/api/weatherToday')
+            api.noParams('weatherToday')
             .then((data)=>{
                 this.todayWeather = data.data.results //当日天气
             })
-            axios.get('http://localhost:3100/api/weatherNext')
+            //axios.get('http://localhost:3100/api/weatherNext')
+            api.noParams('weatherNext')
             .then((data)=>{
                 this.weatherData = data.data.results[0] //包含地区 上次更新时间 未来三天天气
                 //是一个未来2天天气的数组

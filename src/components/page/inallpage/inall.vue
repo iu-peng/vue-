@@ -75,15 +75,15 @@
 					<div>
 						<el-card class="" body-style="padding:0px 0px;">
 						    <div slot="header" class="clearfix" style="border-bottom:none;">
-						        <span>商品分类</span>
+						        <span>结算页</span>
 						        <el-button 
 						            style="float: right; padding:3px 10px;" 
 						            plain
-						            @click=""
+						            @click="settleOnoff=!settleOnoff"
 						        >-</el-button>
 						    </div>
 						    <el-collapse-transition>
-						        <div v-show="true" class="settle">
+						        <div v-show="settleOnoff" class="settle">
 					            	<el-row>
 										<el-col :span="12">
 											<p class="total"><b>x </b>{{countAllNum}}</p>
@@ -99,13 +99,24 @@
 											<el-button 
 												class="overbtn" 
 												type="danger"
+												@click="$router.push('/home/possystem')"
 											>继续购物</el-button>
 										</el-col>
 										<el-col :span="12">
 											<el-button 
 												class="overbtn" 
 												type="danger"
+												@click="$router.push('/home/shopcar')"
 											>马上结算</el-button>
+										</el-col>
+					            	</el-row>
+					            	<el-row>
+										<el-col :span="24">
+											<el-carousel indicator-position="none" type="card" height="100px">
+											    <el-carousel-item v-for="per,perIndex in kindsImgArr" :key="perIndex">
+													<img :src="per.goodsImg" alt="card">
+											    </el-carousel-item>
+											  </el-carousel>
 										</el-col>
 					            	</el-row>
 						        </div>
@@ -119,19 +130,23 @@
 </template>
 
 <script>
-	import axios from 'axios'
+	import api from '../../api/api'
 	
 	export default {
 		data(){
 			return {
-				priceAllMoney:0,
-				countAllNum:0,
-				chartData:{},
-				chartSettings:{},
+				settleOnoff:true,//结算面板收缩控制
 
-				kindsArr:[],
+				priceAllMoney:0,//总价格
+				countAllNum:0,//总数量
+
+				chartData:{},//图表数据
+				chartSettings:{},//图表设置参数
+
+				kindsArr:[],//分类后组成的二维数组
+				kindsImgArr:[],//轮播图数组
 				kindsDetailsArr:[
-					{name:'汉堡',countAll:0,priceAll:0,colle:true},
+					{name:'汉堡',countAll:0,priceAll:0,colle:true},//colle为分类控制收缩控制
 					{name:'特色小吃',countAll:0,priceAll:0,colle:true},
 					{name:'饮料',countAll:0,priceAll:0,colle:true},
 					{name:'套餐',countAll:0,priceAll:0,colle:true}
@@ -167,6 +182,11 @@
 							this.countAllNum += it.count
 						})
 					})
+					this.kindsImaArr = []
+					this.kindsArr.forEach((item)=>{
+						this.kindsImgArr = this.kindsImgArr.concat(item)
+					})
+					this.$store.dispatch('editKindsData',this.kindsArr)
 				}
 			}
 		},
@@ -188,7 +208,8 @@
 
 		},
 		mounted(){
-			axios.get('http://localhost:3100/api/getOrderList')
+			//axios.get('http://localhost:3100/api/getOrderList')
+			api.noParams('getOrderList')
 			.then((data)=>{
 				this.getList(data)
 			})
@@ -221,7 +242,10 @@
 		},
 		methods:{
 			delOne(goodsId){
-				axios.post('http://localhost:3100/api/delOne',{delId:goodsId})
+				//axios.post('http://localhost:3100/api/delOne',{delId:goodsId})
+				api.haveParams('delOne',
+				  	{delId:goodsId}
+				)
 				.then((data)=>{
 					if(data.data.code === 1){
 						//this.open()
@@ -233,7 +257,10 @@
 				})
 			},
 			addOne(goodsId){
-				axios.post('http://localhost:3100/api/addOne',{goodsId:goodsId})
+				//axios.post('http://localhost:3100/api/addOne',{goodsId:goodsId})
+				api.haveParams('addOne',
+			        {goodsId:goodsId}
+			    )
 				.then((data)=>{
 					//购物车满 提示警告
 					if(data.data.code === 1){
@@ -243,7 +270,10 @@
 				})
 			},
 			reduceOne(goodsId){
-				axios.post('http://localhost:3100/api/reduceOne',{reduceId:goodsId})
+				//axios.post('http://localhost:3100/api/reduceOne',{reduceId:goodsId})
+				api.haveParams('reduceOne',
+			        {reduceId:goodsId}
+			    )
 				.then((data)=>{
 					if(data.data.code === 1){
 						this.open2()
@@ -265,7 +295,7 @@
 			},
 			openDel(goodsId) {
 				this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-					confirmButtonText: '确定',
+					confirmButtonText: '删除',
 					cancelButtonText: '取消',
 					type: 'warning'
 				})
@@ -456,5 +486,9 @@
 .overbtn{
 	margin:0 auto;
 	display:block;
+}
+img[alt="card"]{
+	width:130px;
+	height:100px;
 }
 </style>

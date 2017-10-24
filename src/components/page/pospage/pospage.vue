@@ -102,7 +102,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import api from '../../api/api'
 
 import headerNav from '@/components/common/header'
 import leftNav from '@/components/common/leftNav'
@@ -123,24 +123,30 @@ export default {
     let checklist = document.querySelector('#checked-list')
     let offtenGoods = document.querySelector('#offten-goods')
     //获取常用商品信息
-    axios.get('http://localhost:3100/api/offtengoods')
+    //axios.get('http://localhost:3100/api/offtengoods')
+    api.noParams('offtengoods')
     .then((data)=>{
       this.offtenGoodList = data.data.list
     })
     //获取分类商品信息
-    axios.get('http://localhost:3100/api/goodskind')
+    //axios.get('http://localhost:3100/api/goodskind')
+    api.noParams('goodskind')
     .then((data)=>{
       this.goodsKindList = data.data.list
     })
     //获取订单信息
-    axios.get('http://localhost:3100/api/getOrderList')
+    //axios.get('http://localhost:3100/api/getOrderList')
+    api.noParams('getOrderList')
     .then((data)=>{
       this.checkedList = data.data.order_list
     })
   },
   methods:{
     addOrder(item){
-      axios.post('http://localhost:3100/api/setShopCarList',{carList:JSON.stringify(item)})
+      //axios.post('http://localhost:3100/api/setShopCarList',{carList:JSON.stringify(item)})
+      api.haveParams('setShopCarList',
+        {carList:JSON.stringify(item)}
+        )
       .then((data)=>{
         //购物车满 提示警告
         if(data.data.code === 1){
@@ -150,7 +156,10 @@ export default {
       })
     },
     addOne(goodsId){
-      axios.post('http://localhost:3100/api/addOne',{goodsId:goodsId})
+      //axios.post('http://localhost:3100/api/addOne',{goodsId:goodsId})
+      api.haveParams('addOne',
+        {goodsId:goodsId}
+        )
       .then((data)=>{
         //购物车满 提示警告
         if(data.data.code === 1){
@@ -160,7 +169,10 @@ export default {
       })
     },
     delOne(goodsId){
-      axios.post('http://localhost:3100/api/delOne',{delId:goodsId})
+      //axios.post('http://localhost:3100/api/delOne',{delId:goodsId})
+      api.haveParams('delOne',
+        {delId:goodsId}
+        )
       .then((data)=>{
         if(data.data.code === 1){
           this.open()
@@ -169,7 +181,10 @@ export default {
       })
     },
     reduceOne(goodsId){
-      axios.post('http://localhost:3100/api/reduceOne',{reduceId:goodsId})
+      //axios.post('http://localhost:3100/api/reduceOne',{reduceId:goodsId})
+      api.haveParams('reduceOne',
+        {reduceId:goodsId}
+        )
       .then((data)=>{
         if(data.data.code === 1){
           this.open2()
@@ -190,7 +205,7 @@ export default {
       })
     },
     openDel(goodsId) {
-      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+      this.$confirm('此操作将永久删除该商品, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
@@ -232,6 +247,7 @@ export default {
 <style>
 #pospage{
   -background:rgb(245, 245, 255) url(../../../assets/img/posbg.png);
+  width:100%;
 }
 #checked-list{
   -background:#D3DCE6;

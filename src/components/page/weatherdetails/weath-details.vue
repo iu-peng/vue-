@@ -82,7 +82,7 @@
 </template>
 
 <script>
-    import axios from 'axios'
+    import api from '../../api/api'
     export default{
         data(){
             return{
@@ -112,7 +112,8 @@
             }
         },
         created(){
-            axios.get('http://localhost:3100/api/24hours')
+            //axios.get('http://localhost:3100/api/24hours')
+            api.noParams('24hours')
             .then((data)=>{
                 let resVal = data.data //返回的总对象
                 //24小时
@@ -176,7 +177,6 @@
             })
             //未来15天天气
             .then((data)=>{
-                console.log(data.tempDay)
                 this.chartData2 = {
                     columns: ['日期', '最高温','最低温'],
                     rows:data.tempDay

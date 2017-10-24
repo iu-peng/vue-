@@ -1,7 +1,7 @@
 <template>
 	<el-menu default-active="2" theme="dark" class="left-nav" :collapse="changeCollapse" unique-opened router>
 	<!-- router 启用route跳转路由模式 -->
-		<el-submenu index="1">
+		<!-- <el-submenu index="1">
 			<template slot="title">
 				<i class="el-icon-message"></i>
 				<span slot="title">导航</span>
@@ -18,7 +18,7 @@
 				<template slot="title">选项4</template>
 				<el-menu-item index="1-4-1">选项1</el-menu-item>
 			</el-submenu>
-		</el-submenu>
+		</el-submenu> -->
 		<!-- 总结页面 -->
 		<el-menu-item index="2" :route="{name:'inallpage'}">
 			<i class="iconfont icon-zongji"></i>

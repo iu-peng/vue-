@@ -1,6 +1,6 @@
 <template>
 	<div id="header">
-		<el-menu 
+		<!-- <el-menu 
 			theme="dark" 
 			:default-active="activeIndex" 
 			class="el-menu-demo" 
@@ -17,7 +17,7 @@
 					<el-menu-item index="2-3">选项3</el-menu-item>
 				</el-submenu>
 			<el-menu-item index="4">订单管理</el-menu-item>
-		</el-menu>
+		</el-menu> -->
 		<canvas-clock class="canvas"></canvas-clock>
 	</div>
 	
@@ -45,6 +45,8 @@
 <style scoped>
 	#header{
 		width:100%;
+		height:60px;
+		background: #324157;
 		position:relative;
 	}
 	.el-menu-demo{

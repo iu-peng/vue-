@@ -37,7 +37,8 @@
 </template>
 
 <script>
-import axios from 'axios'
+
+import api from '../api/api'
 import canvasLogin from '@/components/page/canvaslogin/canvaslogin2'
 
 //元素居中方法
@@ -61,10 +62,9 @@ export default {
             }else if(!emailRex.test(value)){
                 callback(new Error('请输入正确的邮箱'))
             } else {
-                axios.post('http://localhost:3100/api/loginUserName',{username:value})
+                api.haveParams('loginUserName',{username:value})
                 .then((data)=>{
                     if(data.data.validate){
-
                         this.ruleForm2.username = value
                     }else{
                         callback(new Error('用户名将自动注册'))
@@ -78,10 +78,9 @@ export default {
             if (value === '') {
                 callback(new Error('请输入密码'));
             }else if(!passRex.test(value)){
-                console.log(!passRex.test(value))
                 callback(new Error('密码为字母开头的6-18个字符'))
             }else {
-                axios.post('http://localhost:3100/api/loginPassword',
+                api.haveParams('loginPassword',
                     {username:this.ruleForm2.username,password:value,check:true})
                 .then((data)=>{
                     if(data.data.validate){
@@ -119,10 +118,21 @@ export default {
         submitForm() {
             this.error = ''
             this.fullscreenLoading = true;
-            axios.post('http://localhost:3100/api/loginPassword',
+            api.haveParams('loginPassword',
                 {username:this.ruleForm2.username,password:this.ruleForm2.pass})
             .then((data)=>{
-                console.log(data)
+                this.fullscreenLoading = false;
+                if(data.data.validate){
+                    this.$router.push({path:'/home'})
+                    this.fullscreenLoading = false;
+                }else{
+                    this.error = '密码错误!'
+                }
+            })
+            /*axios.post('http://localhost:3100/api/loginPassword',
+                {username:this.ruleForm2.username,password:this.ruleForm2.pass})
+            .then((data)=>{
+                //console.log(data)
                 this.fullscreenLoading = false;
                 if(data.data.validate){
                     this.$router.push({path:'/home'})
@@ -131,7 +141,7 @@ export default {
                 }else{
                     this.error = '密码错误!'
                 }
-            })
+            })*/
         }
     },
     mounted(){
