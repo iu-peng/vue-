@@ -2,47 +2,30 @@ import Vue from 'vue'
 import Router from 'vue-router'
 Vue.use(Router)
 
-import Home from '@/components/page/home'
-//总结页面
-import Inall from '@/components/page/inallpage/inall'
-//购物车页面
-import Shopcar from '@/components/page/shopcar/shopcar'
 
-import Login from '@/components/page/login'
-//pos页面
-import Pospage from '@/components/page/pospage/pospage'
-//头部和左侧导航
-import headerNav from '@/components/common/header'
-import leftNav from '@/components/common/leftNav'
-//404页面
-import Error from '@/components/page/errorpage/error'
-//折线图
-import Vline from '@/components/page/v-charts/line'
-//柱状图
-import Vcolumn from '@/components/page/v-charts/column'
-//条形图
-import Vbar from '@/components/page/v-charts/bar'
-//饼状图
-import Vpie from '@/components/page/v-charts/pie'
-//环状图
-import Vring from '@/components/page/v-charts/ring'
-//漏斗图
-import Vfunnel from '@/components/page/v-charts/funnel'
-//雷达图
-import Vradar from '@/components/page/v-charts/radar'
-//地图
-import Vmap from '@/components/page/v-charts/map'
+const Home = r => require.ensure([], () => r(require('@/components/page/home')), 'home')
+const Inall = r => require.ensure([], () => r(require('@/components/page/inallpage/inall')), 'inall')
+const Shopcar = r => require.ensure([], () => r(require('@/components/page/shopcar/shopcar')), 'shopcar')
+const Login = r => require.ensure([], () => r(require('@/components/page/login')), 'login')
+const Pospage = r => require.ensure([], () => r(require('@/components/page/pospage/pospage')), 'pospage')
+const headerNav = r => require.ensure([], () => r(require('@/components/common/header')), 'header')
+const leftNav = r => require.ensure([], () => r(require('@/components/common/leftNav')), 'leftnav')
+const Error = r => require.ensure([], () => r(require('@/components/page/errorpage/error')), 'error')
+const Vline = r => require.ensure([], () => r(require('@/components/page/v-charts/line')), 'vline')
+const Vcolumn = r => require.ensure([], () => r(require('@/components/page/v-charts/column')), 'vcolumn')
+const Vbar = r => require.ensure([], () => r(require('@/components/page/v-charts/bar')), 'vbar')
+const Vpie = r => require.ensure([], () => r(require('@/components/page/v-charts/pie')), 'vpie')
+const Vring = r => require.ensure([], () => r(require('@/components/page/v-charts/ring')), 'vring')
+const Vfunnel = r => require.ensure([], () => r(require('@/components/page/v-charts/funnel')), 'vfunnel')
+const Vradar = r => require.ensure([], () => r(require('@/components/page/v-charts/radar')), 'vradar')
+const Vmap = r => require.ensure([], () => r(require('@/components/page/v-charts/map')), 'vmap')
+const Markdown = r => require.ensure([], () => r(require('@/components/page/markdown/markdown')), 'markdown')
+const Ueditor = r => require.ensure([], () => r(require('@/components/page/ueditor/ueditor')), 'ueditor')
+const Weather = r => require.ensure([], () => r(require('@/components/page/weather/weather')), 'weather')
+const WeatherNext = r => require.ensure([], () => r(require('@/components/page/weather/nextweather')), 'weathernext')
+const WeatherDetails = r => require.ensure([], () => r(require('@/components/page/weatherdetails/weath-details')), 'weatherdetails')
 
-//markdown
-import Markdown from '@/components/page/markdown/markdown'
-//富文本编辑ueditor
-import Ueditor from '@/components/page/ueditor/ueditor'
-//当天天气预报
-import Weather from '@/components/page/weather/weather'
-//未来天气预报
-import WeatherNext from '@/components/page/weather/nextweather'
-//24小时天气
-import WeatherDetails from '@/components/page/weatherdetails/weath-details'
+
 
 
 let router = new Router({
