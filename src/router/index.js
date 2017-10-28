@@ -26,7 +26,7 @@ const WeatherNext = r => require.ensure([], () => r(require('@/components/page/w
 const WeatherDetails = r => require.ensure([], () => r(require('@/components/page/weatherdetails/weath-details')), 'weatherdetails')
 
 
-
+import { getStore } from '../config/utils'
 
 let router = new Router({
 	mode:'history',
@@ -34,7 +34,14 @@ let router = new Router({
   	{
   		path:'/',
   		component:Login,
-  		name:'login'
+  		name:'login',
+  		beforeEnter: (to, from, next) => {
+  			if(getStore('username')){
+  				next('/home')
+  			}else{
+  				next()
+  			}
+  		}
   	},
     {
 	    path: '/home',
@@ -130,5 +137,13 @@ let router = new Router({
     }
   ]
 })
+
+/*router.beforeEach((to, from, next) => {
+	if( getStore('username') ){
+		next()
+	}else{
+		next('/')
+	}
+})*/
 
 export default router

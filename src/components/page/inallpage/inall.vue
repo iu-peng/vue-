@@ -1,7 +1,7 @@
 <template>
 	<div id="inall">
 		<el-row :gutter="20">
-			<el-col :span="6" v-for="item,index in countNum" key="index">
+			<el-col :lg="6" :md="8" :xs="24" :sm="12" v-for="item,index in countNum" key="index">
 				<div class="kind-item">
 				<!-- 总计 -->
 					<div class="tip">
@@ -67,11 +67,11 @@
 			</el-col>
 		</el-row>
 		<el-row class="charts">
-			<el-row :gutter="20" type="flex" justify="space-around">
-				<el-col :span="14" class="charts-left">
+			<el-row :gutter="20">
+				<el-col  :lg="14" :md="12" :xs="24" class="charts-left" style="margin-bottom:20px;">
 					<ve-histogram :data="chartData" :settings="chartSettings"></ve-histogram>
 				</el-col>
-				<el-col :span="8">
+				<el-col  :lg="{span:9,offset:1}" :md="11" :xs="24">
 					<div>
 						<el-card class="" body-style="padding:0px 0px;">
 						    <div slot="header" class="clearfix" style="border-bottom:none;">

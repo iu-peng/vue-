@@ -39,6 +39,7 @@
 <script>
 
 import api from '../api/api'
+import { setStore } from '../../config/utils'
 import canvasLogin from '@/components/page/canvaslogin/canvaslogin2'
 
 //元素居中方法
@@ -123,25 +124,14 @@ export default {
             .then((data)=>{
                 this.fullscreenLoading = false;
                 if(data.data.validate){
+                    // 将登录用户缓存到本地
+                    setStore('username',this.ruleForm2.username)
                     this.$router.push({path:'/home'})
                     this.fullscreenLoading = false;
                 }else{
                     this.error = '密码错误!'
                 }
             })
-            /*axios.post('http://localhost:3100/api/loginPassword',
-                {username:this.ruleForm2.username,password:this.ruleForm2.pass})
-            .then((data)=>{
-                //console.log(data)
-                this.fullscreenLoading = false;
-                if(data.data.validate){
-                    this.$router.push({path:'/home'})
-                    this.fullscreenLoading = false;
-                    
-                }else{
-                    this.error = '密码错误!'
-                }
-            })*/
         }
     },
     mounted(){

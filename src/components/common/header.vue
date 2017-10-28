@@ -1,5 +1,15 @@
 <template>
 	<div id="header">
+		<el-dropdown trigger="click">
+			<span class="self">
+				<img src="./selflogo.jpg" alt="个人中心" class="self-logo">
+				<i class="el-icon-caret-bottom el-icon--right"></i>
+			</span>
+			<el-dropdown-menu slot="dropdown">
+				<el-dropdown-item>个人中心</el-dropdown-item>
+				<el-dropdown-item @click.native="loginout">退出登录</el-dropdown-item>
+			</el-dropdown-menu>
+		</el-dropdown>
 		<!-- <el-menu 
 			theme="dark" 
 			:default-active="activeIndex" 
@@ -24,6 +34,7 @@
 </template>
 
 <script>
+	import { removeStore } from '../../config/utils'
 	import canvasClock from '@/components/page/canvasclock/canvas'
 	export default {
 		data(){
@@ -38,6 +49,11 @@
 			changeCollapse(){
 				this.isCollapse = !this.isCollapse
 				this.$emit('asideclose')
+			},
+			loginout(){
+				console.log(33)
+				removeStore('username')
+				this.$router.push({name:'login'})
 			}
 		}
 	}
@@ -58,5 +74,25 @@
 		right:0;
 		top:0;
 		padding:15px 20px;
+	}
+	.el-dropdown >>> {
+		width:100px;
+		text-align:center;
+		color:#fff;
+		height:60px;
+		line-height:60px;
+	}
+	.self{
+		display:inline-block;
+		width:50px;
+		height:50px;
+		border-radius:50%;
+		overflow:hidden;
+		background-size:100%;
+		margin:5px 0 ;
+	}
+	.self-logo{
+		width:50px;
+		height:50px;
 	}
 </style>
